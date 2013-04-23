@@ -30,6 +30,7 @@ public class CTF extends StateBasedGame {
 	 */
 	public static void main(String[] args) throws SlickException{
 		AppGameContainer gc = new AppGameContainer(new CTF());
+		gc.setShowFPS(false);
 		
 		gc.setDisplayMode(800, 600, false);
 		gc.start();
