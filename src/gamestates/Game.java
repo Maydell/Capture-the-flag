@@ -8,6 +8,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import world.Camera;
 import world.Map;
+import world.Tile;
 
 public class Game extends BasicGameState {
 
@@ -24,6 +25,7 @@ public class Game extends BasicGameState {
 		System.out.println("Entered Game-state");
 		map = new Map();
 		c = new Camera();
+		Tile.initTiles();
 	}
 
 	@Override
@@ -31,7 +33,7 @@ public class Game extends BasicGameState {
 		g.pushTransform();
 		{
 			c.useView(g);
-			map.draw(g, c.getX(), c.getY());
+			map.draw(g);
 		}
 		g.popTransform();
 	}

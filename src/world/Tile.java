@@ -4,23 +4,34 @@ import graphics.Drawable;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 
 public class Tile extends Drawable {
 
-	public static final int TILE_SIZE = 16;
+	public static final int TILE_SIZE = 50;
+	
+	public static Image[] images;
 	
 	public enum Type {
-		EMPTY(true), GRASS(false), ROCK(false), WALL_GRASS_VERT(true), WALL_GRASS_HOR(
+		EMPTY(true, 0), GRASS(false, 1), ROCK(false, 2), WALL_GRASS_VERT(true), WALL_GRASS_HOR(
 				true), WALL_GRASS_NW(true), WALL_GRASS_NE(true), WALL_GRASS_SE(
 				true), WALL_GRASS_SW(true), WALL_ROCK_VERT(true), WALL_ROCK_HOR(
 				true), WALL_ROCK_NW(true), WALL_ROCK_NE(true), WALL_ROCK_SE(
 				true), WALL_ROCK_SW(true);
 
 		boolean occupied;
+		int id;
 
 		Type(boolean occupied) {
 			this.occupied = occupied;
+		}
+		
+		Type(boolean occupied, int id) {
+			this.occupied = occupied;
+			this.id = id;
 		}
 	}
 
@@ -28,6 +39,17 @@ public class Tile extends Drawable {
 	private Type type;
 	private Drawable entity;
 
+	public static void initTiles() {
+		images = new Image[3];
+		try {
+			images[0] = new Image("images/empty.png");
+			images[1] = new Image("images/grass.png");
+			images[2] = new Image("images/rock.png");
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public Tile(Type type, int xPos, int yPos) {
 		this.type = type;
 		setxPos(xPos);
@@ -51,7 +73,9 @@ public class Tile extends Drawable {
 
 	@Override
 	public void draw(Graphics g) {
-		// TODO Draw tiles based on type
+		g.setColor(Color.white);
+		g.drawImage(images[type.id], xPos * TILE_SIZE, yPos * TILE_SIZE);
+		g.drawRect(xPos * TILE_SIZE, yPos * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 	}
 
 	// TODO

@@ -16,10 +16,6 @@ public class Map {
 		loadMap();
 	}
 	
-	public static void main(String[] args) {
-		new Map();
-	}
-
 	public void loadMap() {
 		File file = new File("maps/Map.map");
 		try {
@@ -125,11 +121,7 @@ public class Map {
 		}
 	}
 
-	public void draw(Graphics g, float cx, float cy) {
-		// Get index of camera location
-		cx /= Tile.TILE_SIZE;
-		cy /= Tile.TILE_SIZE;
-		
+	public void draw(Graphics g) {
 		for (int x = 0; x < tiles.length; x++) {
 			for (int y = 0; y < tiles[0].length; y++) {
 				tiles[x][y].draw(g);
