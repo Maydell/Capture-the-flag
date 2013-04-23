@@ -19,7 +19,7 @@ public class Map {
 	}
 
 	public void loadMap() {
-		File file = new File("res/Map.map");
+		File file = new File("res/maps/Map.map");
 		try {
 			Scanner fileReader = new Scanner(file);
 			name = fileReader.nextLine();
@@ -94,7 +94,8 @@ public class Map {
 					}
 				}
 			}
-
+			fileReader.close();
+			connectTiles();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -104,6 +105,21 @@ public class Map {
 				System.out.print(tiles[x][y] + " ");
 			}
 			System.out.println();
+		}
+	}
+	
+	public void connectTiles() {
+		for(int x = 0; x < tiles.length; x++) {
+			for (int y = 0; y < tiles[0].length; y++) {
+				if(x > 0) 
+					tiles[x][y].addNeighbor(tiles[x-1][y]);
+				if(x < tiles.length) 
+					tiles[x][y].addNeighbor(tiles[x+1][y]);
+				if(y > 0) 
+					tiles[x][y].addNeighbor(tiles[x][y-1]);
+				if (y < tiles[0].length)
+					tiles[x][y].addNeighbor(tiles[x][y+1]);
+			}
 		}
 	}
 }

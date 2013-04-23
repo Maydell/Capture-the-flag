@@ -1,6 +1,5 @@
 package world;
 
-import java.awt.Point;
 import java.util.ArrayList;
 
 import graphics.Drawable;
@@ -9,7 +8,7 @@ public class Unit extends Drawable {
 
 	public static enum Class {
 
-		Scout(75, 40, 8, 8);
+		Scout(75, 40, 8, 8), Soldier(100, 50, 8, 4);
 
 		Class(int hp, int damage, int shootRange, int moveRange) {
 			this.hp = hp;
@@ -34,13 +33,6 @@ public class Unit extends Drawable {
 	@Override
 	public void draw() {
 
-	}
-
-	public boolean moveTo(Tile from, Tile to) {
-		if (Map.tiles[to.getxPos()][to.getyPos()].isOccupied())
-			return false;
-		ArrayList<Point> visited = new ArrayList<Point>();
-		return true;
 	}
 
 	public int getHp() {
