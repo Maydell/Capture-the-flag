@@ -1,5 +1,7 @@
 package world;
 
+import main.CTF;
+
 import org.newdawn.slick.Graphics;
 
 import graphics.Drawable;
@@ -15,7 +17,7 @@ public class Camera {
 	}
 
 	public void useView(Graphics g) {
-		g.translate(-getX(), -getY());
+		g.translate(-getX() + CTF.WIDTH / 2, -getY() + CTF.HEIGHT / 2);
 	}
 
 	public float getX() {
