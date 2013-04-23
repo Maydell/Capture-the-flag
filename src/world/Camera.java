@@ -19,6 +19,11 @@ public class Camera {
 	public void useView(Graphics g) {
 		g.translate(-getX() + CTF.WIDTH / 2, -getY() + CTF.HEIGHT / 2);
 	}
+	
+	public void move(float dx, float dy) {
+		x += dx;
+		y += dy;
+	}
 
 	public float getX() {
 		return x;
