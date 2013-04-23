@@ -38,7 +38,7 @@ public class Tile extends Drawable {
 	}
 
 	public void addEntity(Drawable entity) {
-		this.entity = entity;
+		this.setEntity(entity);
 	}
 
 	public boolean isOccupied() {
@@ -53,6 +53,14 @@ public class Tile extends Drawable {
 	// TODO
 	public String toString() {
 		return type.name();
+	}
+
+	public Drawable getEntity() {
+		return entity;
+	}
+
+	public void setEntity(Drawable entity) {
+		this.entity = entity;
 	}
 
 }

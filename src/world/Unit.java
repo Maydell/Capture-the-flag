@@ -1,7 +1,5 @@
 package world;
 
-import java.util.ArrayList;
-
 import graphics.Drawable;
 
 public class Unit extends Drawable {
