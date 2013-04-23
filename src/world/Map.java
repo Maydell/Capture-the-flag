@@ -19,7 +19,7 @@ public class Map {
 	}
 
 	public void loadMap() {
-		File file = new File("res/maps/Map.map");
+		File file = new File("Map.map");
 		try {
 			Scanner fileReader = new Scanner(file);
 			name = fileReader.nextLine();

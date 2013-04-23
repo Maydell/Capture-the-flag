@@ -1,8 +1,8 @@
 package world;
 
-import java.util.ArrayList;
-
 import graphics.Drawable;
+
+import java.util.ArrayList;
 
 public class Tile extends Drawable {
 
