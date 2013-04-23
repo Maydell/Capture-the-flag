@@ -27,7 +27,7 @@ public class Tile extends Drawable {
 
 //	public boolean isOccupied() {
 //		if(type.occupied || (entity != null && entity.InstanceOf(Flag)));
-//	} 
+//	}
 
 	@Override
 	public void draw() {
