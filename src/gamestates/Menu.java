@@ -30,13 +30,13 @@ public class Menu extends BasicGameState {
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		this.gc = gc;
-		Image normalStart = new Image("images/startButtonNormal.png");
-		Image hoverStart = new Image("images/startButtonHover.png");
-		Image normalQuit = new Image("images/quitButtonNormal.png");
-		Image hoverQuit = new Image("images/quitButtonHover.png");
+		Image normalStart = new Image("images/buttons/startButtonNormal.png");
+		Image hoverStart = new Image("images/buttons/startButtonHover.png");
+		Image normalQuit = new Image("images/buttons/quitButtonNormal.png");
+		Image hoverQuit = new Image("images/buttons/quitButtonHover.png");
 		startButton = new Button(gc, normalStart, hoverStart, (gc.getWidth() - normalStart.getWidth()) / 2, (gc.getHeight() - normalStart.getHeight()) / 2 - 50);
 		quitButton = new Button(gc, normalQuit, hoverQuit, (gc.getWidth() - normalQuit.getWidth()) / 2, (gc.getHeight() - normalQuit.getHeight()) / 2 + 50);
-		logo = new Image("images/logo.png");
+		logo = new Image("res/images/logo.png");
 	}
 
 	@Override

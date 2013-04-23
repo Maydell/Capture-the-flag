@@ -42,9 +42,9 @@ public class Tile extends Drawable {
 	public static void initTiles() {
 		images = new Image[3];
 		try {
-			images[0] = new Image("images/empty.png");
-			images[1] = new Image("images/grass.png");
-			images[2] = new Image("images/rock.png");
+			images[0] = new Image("images/tiles/empty.png");
+			images[1] = new Image("images/tiles/grass.png");
+			images[2] = new Image("images/tiles/rock.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
