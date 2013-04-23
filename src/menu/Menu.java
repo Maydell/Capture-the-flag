@@ -1,5 +1,7 @@
 package menu;
 
+import graphics.Button;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -10,18 +12,16 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Menu extends BasicGameState{
 
-	MouseOverArea quitButton;
-	MouseOverArea startButton;
+	Button quitButton;
+	Button startButton;
 	
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
-		Image button = new Image("grass.jpg");
-		startButton = new MouseOverArea(gc, button, 100, 40, 50, 50);
-//		startButton.setNormalColor(new Color(255, 0, 0));
-		quitButton = new MouseOverArea(gc, button, 100, 40, 50, 150);
-//		quitButton.setNormalColor(new Color(0, 255, 0));
-		
+		Image button = new Image(100, 50);
+		button.setImageColor(255, 255, 255);
+		startButton = new Button(gc, button, 100, 40, 100, 200);
+		quitButton = new Button(gc, button, 100, 140, 50, 100);
 	}
 
 	@Override
@@ -34,7 +34,6 @@ public class Menu extends BasicGameState{
 	@Override
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
 			throws SlickException {
-		// TODO Auto-generated method stub
 		
 	}
 
