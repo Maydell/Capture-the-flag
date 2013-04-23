@@ -8,8 +8,9 @@ public class Button extends MouseOverArea {
 
 	private boolean clicked;
 	
-	public Button(GUIContext container, Image image, int x, int y, int width, int height) {
-		super(container, image, x, y, width, height);
+	public Button(GUIContext container, Image image, Image hover, int x, int y) {
+		super(container, image, x, y);
+		setMouseOverImage(hover);
 	}
 
 	@Override
