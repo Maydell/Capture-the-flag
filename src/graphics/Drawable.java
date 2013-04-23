@@ -1,5 +1,7 @@
 package graphics;
 
+import org.newdawn.slick.Graphics;
+
 public abstract class Drawable {
 
 	protected int xPos, yPos;
@@ -8,7 +10,7 @@ public abstract class Drawable {
 		xPos = x; yPos = y;
 	}
 	
-	public abstract void draw();
+	public abstract void draw(Graphics g);
 	
 	public int getxPos() {
 		return xPos;

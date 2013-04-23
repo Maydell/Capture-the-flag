@@ -4,8 +4,12 @@ import graphics.Drawable;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.Graphics;
+
 public class Tile extends Drawable {
 
+	public static final int TILE_SIZE = 16;
+	
 	public enum Type {
 		EMPTY(true), GRASS(false), ROCK(false), WALL_GRASS_VERT(true), WALL_GRASS_HOR(
 				true), WALL_GRASS_NW(true), WALL_GRASS_NE(true), WALL_GRASS_SE(
@@ -46,8 +50,8 @@ public class Tile extends Drawable {
 	}
 
 	@Override
-	public void draw() {
-
+	public void draw(Graphics g) {
+		// TODO Draw tiles based on type
 	}
 
 	// TODO

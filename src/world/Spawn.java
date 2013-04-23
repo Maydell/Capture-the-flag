@@ -2,6 +2,8 @@ package world;
 
 import graphics.Drawable;
 
+import org.newdawn.slick.Graphics;
+
 public class Spawn extends Drawable {
 
 	public Spawn(int x, int y) {
@@ -21,7 +23,7 @@ public class Spawn extends Drawable {
 	}
 
 	@Override
-	public void draw() {
+	public void draw(Graphics g) {
 		
 	}
 	

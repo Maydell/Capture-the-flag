@@ -1,5 +1,7 @@
 package world;
 
+import org.newdawn.slick.Graphics;
+
 import graphics.Drawable;
 
 public class Flag extends Drawable{
@@ -11,8 +13,7 @@ public class Flag extends Drawable{
 	}
 
 	@Override
-	public void draw() {
-		// TODO Auto-generated method stub
+	public void draw(Graphics g) {
 		
 	}
 

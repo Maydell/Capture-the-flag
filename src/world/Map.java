@@ -1,12 +1,12 @@
 package world;
 
-import graphics.Drawable;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class Map extends Drawable {
+import org.newdawn.slick.Graphics;
+
+public class Map {
 
 	static Tile[][] tiles;
 	Player player1, player2;
@@ -125,8 +125,15 @@ public class Map extends Drawable {
 		}
 	}
 
-	@Override
-	public void draw() {
+	public void draw(Graphics g, float cx, float cy) {
+		// Get index of camera location
+		cx /= Tile.TILE_SIZE;
+		cy /= Tile.TILE_SIZE;
 		
+		for (int x = 0; x < tiles.length; x++) {
+			for (int y = 0; y < tiles[0].length; y++) {
+				tiles[x][y].draw(g);
+			}
+		}
 	}
 }

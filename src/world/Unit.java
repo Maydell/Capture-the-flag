@@ -2,6 +2,8 @@ package world;
 
 import graphics.Drawable;
 
+import org.newdawn.slick.Graphics;
+
 public class Unit extends Drawable {
 
 	public static enum Class {
@@ -29,7 +31,7 @@ public class Unit extends Drawable {
 	}
 
 	@Override
-	public void draw() {
+	public void draw(Graphics g) {
 
 	}
 

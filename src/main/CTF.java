@@ -11,6 +11,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class CTF extends StateBasedGame {
 	
+	public static final int WIDTH = 800, HEIGHT = 600;
+	
 	public static final int MENU = 0, GAME = 1;
 	BasicGameState menu;
 
@@ -32,7 +34,7 @@ public class CTF extends StateBasedGame {
 		AppGameContainer gc = new AppGameContainer(new CTF());
 		gc.setShowFPS(false);
 		
-		gc.setDisplayMode(800, 600, false);
+		gc.setDisplayMode(WIDTH, HEIGHT, false);
 		gc.start();
 	}
 }
