@@ -19,7 +19,8 @@ public class Map {
 	}
 
 	public void loadMap() {
-		File file = new File("Map.map");
+		File file = new File("maps/Map.map");
+		System.out.println(file.exists());
 		try {
 			Scanner fileReader = new Scanner(file);
 			name = fileReader.nextLine();
@@ -113,11 +114,11 @@ public class Map {
 			for (int y = 0; y < tiles[0].length; y++) {
 				if(x > 0) 
 					tiles[x][y].addNeighbor(tiles[x-1][y]);
-				if(x < tiles.length) 
+				if(x < tiles.length - 1) 
 					tiles[x][y].addNeighbor(tiles[x+1][y]);
 				if(y > 0) 
 					tiles[x][y].addNeighbor(tiles[x][y-1]);
-				if (y < tiles[0].length)
+				if (y < tiles[0].length - 1)
 					tiles[x][y].addNeighbor(tiles[x][y+1]);
 			}
 		}
