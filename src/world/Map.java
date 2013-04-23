@@ -1,10 +1,12 @@
 package world;
 
+import graphics.Drawable;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class Map {
+public class Map extends Drawable {
 
 	static Tile[][] tiles;
 	Player player1, player2;
@@ -20,7 +22,6 @@ public class Map {
 
 	public void loadMap() {
 		File file = new File("maps/Map.map");
-		System.out.println(file.exists());
 		try {
 			Scanner fileReader = new Scanner(file);
 			name = fileReader.nextLine();
@@ -122,5 +123,10 @@ public class Map {
 					tiles[x][y].addNeighbor(tiles[x][y+1]);
 			}
 		}
+	}
+
+	@Override
+	public void draw() {
+		
 	}
 }

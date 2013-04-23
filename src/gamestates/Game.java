@@ -20,12 +20,12 @@ public class Game extends BasicGameState {
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		System.out.println("Entered Game-state");
-//		map = new Map();
+		map = new Map();
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-		
+		map.draw();
 	}
 
 	@Override

@@ -17,6 +17,7 @@ public class Menu extends BasicGameState {
 
 	Button quitButton;
 	Button startButton;
+	Image logo;
 	
 	int id;
 
@@ -35,6 +36,7 @@ public class Menu extends BasicGameState {
 		Image hoverQuit = new Image("images/quitButtonHover.png");
 		startButton = new Button(gc, normalStart, hoverStart, (gc.getWidth() - normalStart.getWidth()) / 2, (gc.getHeight() - normalStart.getHeight()) / 2 - 50);
 		quitButton = new Button(gc, normalQuit, hoverQuit, (gc.getWidth() - normalQuit.getWidth()) / 2, (gc.getHeight() - normalQuit.getHeight()) / 2 + 50);
+		logo = new Image("images/logo.png");
 	}
 
 	@Override
@@ -43,6 +45,7 @@ public class Menu extends BasicGameState {
 		g.fillRect(0, 0, gc.getWidth(), gc.getHeight());
 		startButton.render(gc, g);
 		quitButton.render(gc, g);
+		g.drawImage(logo, (gc.getWidth() - logo.getWidth()) / 2, 50);
 	}
 
 	@Override
