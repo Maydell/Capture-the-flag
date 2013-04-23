@@ -34,6 +34,7 @@ public class CTF extends StateBasedGame {
 		AppGameContainer gc = new AppGameContainer(new CTF());
 		gc.setShowFPS(false);
 		gc.setTargetFrameRate(60);
+		gc.setVSync(true);
 		
 		gc.setDisplayMode(WIDTH, HEIGHT, false);
 		gc.start();
