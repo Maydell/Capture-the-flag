@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Map {
 
-	Tile[][] tiles;
+	static Tile[][] tiles;
 	Player player1, player2;
 	String name;
 
@@ -31,64 +31,64 @@ public class Map {
 				for (int y = 0; y < tiles[0].length; y++) {
 					switch (fileReader.nextInt()) {
 					case 0:
-						tiles[x][y] = new Tile(Tile.Type.EMPTY);
+						tiles[x][y] = new Tile(Tile.Type.EMPTY, x, y);
 						break;
 					case 1:
-						tiles[x][y] = new Tile(Tile.Type.GRASS);
+						tiles[x][y] = new Tile(Tile.Type.GRASS, x, y);
 						break;
 					case 2:
-						tiles[x][y] = new Tile(Tile.Type.ROCK);
+						tiles[x][y] = new Tile(Tile.Type.ROCK, x, y);
 						break;
 					case 31:
-						tiles[x][y] = new Tile(Tile.Type.WALL_GRASS_VERT);
+						tiles[x][y] = new Tile(Tile.Type.WALL_GRASS_VERT, x, y);
 						break;
 					case 32:
-						tiles[x][y] = new Tile(Tile.Type.WALL_GRASS_HOR);
+						tiles[x][y] = new Tile(Tile.Type.WALL_GRASS_HOR, x, y);
 						break;
 					case 33:
-						tiles[x][y] = new Tile(Tile.Type.WALL_GRASS_NW);
+						tiles[x][y] = new Tile(Tile.Type.WALL_GRASS_NW, x, y);
 						break;
 					case 34:
-						tiles[x][y] = new Tile(Tile.Type.WALL_GRASS_NE);
+						tiles[x][y] = new Tile(Tile.Type.WALL_GRASS_NE, x, y);
 						break;
 					case 35:
-						tiles[x][y] = new Tile(Tile.Type.WALL_GRASS_SE);
+						tiles[x][y] = new Tile(Tile.Type.WALL_GRASS_SE, x, y);
 						break;
 					case 36:
-						tiles[x][y] = new Tile(Tile.Type.WALL_GRASS_SW);
+						tiles[x][y] = new Tile(Tile.Type.WALL_GRASS_SW, x, y);
 						break;
 					case 41:
-						tiles[x][y] = new Tile(Tile.Type.WALL_GRASS_VERT);
+						tiles[x][y] = new Tile(Tile.Type.WALL_GRASS_VERT, x, y);
 						break;
 					case 42:
-						tiles[x][y] = new Tile(Tile.Type.WALL_GRASS_HOR);
+						tiles[x][y] = new Tile(Tile.Type.WALL_GRASS_HOR, x, y);
 						break;
 					case 43:
-						tiles[x][y] = new Tile(Tile.Type.WALL_GRASS_NW);
+						tiles[x][y] = new Tile(Tile.Type.WALL_GRASS_NW, x, y);
 						break;
 					case 44:
-						tiles[x][y] = new Tile(Tile.Type.WALL_GRASS_NE);
+						tiles[x][y] = new Tile(Tile.Type.WALL_GRASS_NE, x, y);
 						break;
 					case 45:
-						tiles[x][y] = new Tile(Tile.Type.WALL_GRASS_SE);
+						tiles[x][y] = new Tile(Tile.Type.WALL_GRASS_SE, x, y);
 						break;
 					case 46:
-						tiles[x][y] = new Tile(Tile.Type.WALL_GRASS_SW);
+						tiles[x][y] = new Tile(Tile.Type.WALL_GRASS_SW, x, y);
 						break;
 					case 511:
-						tiles[x][y] = new Tile(Tile.Type.GRASS);
+						tiles[x][y] = new Tile(Tile.Type.GRASS, x, y);
 						tiles[x][y].addEntity(new Flag(Player.Team.Blue));
 						break;
 					case 512:
-						tiles[x][y] = new Tile(Tile.Type.ROCK);
+						tiles[x][y] = new Tile(Tile.Type.ROCK, x, y);
 						tiles[x][y].addEntity(new Flag(Player.Team.Blue));
 						break;
 					case 521:
-						tiles[x][y] = new Tile(Tile.Type.GRASS);
+						tiles[x][y] = new Tile(Tile.Type.GRASS, x, y);
 						tiles[x][y].addEntity(new Flag(Player.Team.Red));
 						break;
 					case 522:
-						tiles[x][y] = new Tile(Tile.Type.ROCK);
+						tiles[x][y] = new Tile(Tile.Type.ROCK, x, y);
 						tiles[x][y].addEntity(new Flag(Player.Team.Red));
 						break;
 					}

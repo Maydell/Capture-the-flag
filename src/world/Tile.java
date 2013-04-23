@@ -17,17 +17,25 @@ public class Tile extends Drawable {
 	private Type type;
 	private Drawable entity;
 
-	public Tile(Type type) {
+	public Tile(Type type, int xPos, int yPos) {
 		this.type = type;
+		setxPos(xPos);
+		setyPos(yPos);
 	}
 
 	public void addEntity(Drawable entity) {
 		this.entity = entity;
 	}
 
+<<<<<<< HEAD
 //	public boolean isOccupied() {
 //		if(type.occupied || (entity != null && entity.InstanceOf(Flag)));
 //	}
+=======
+	public boolean isOccupied() {
+		return false;
+	} 
+>>>>>>> Blorg
 
 	@Override
 	public void draw() {
