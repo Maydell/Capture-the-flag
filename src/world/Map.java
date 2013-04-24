@@ -94,25 +94,25 @@ public class Map {
 						break;
 					case 611:
 						tiles[x][y] = new Tile(Tile.Type.GRASS, x, y);
-						spawn1 = new Spawn(x, y, tiles[x][y]);
+						spawn1 = new Spawn(x, y, tiles[x][y], Player.RED);
 						tiles[x][y].setEntity(spawn1);
 						player1.setSpawn(spawn1);
 						break;
 					case 612:
 						tiles[x][y] = new Tile(Tile.Type.ROCK, x, y);
-						spawn1 = new Spawn(x, y, tiles[x][y]);
+						spawn1 = new Spawn(x, y, tiles[x][y], Player.RED);
 						tiles[x][y].setEntity(spawn1);
 						player1.setSpawn(spawn1);
 						break;
 					case 621:
 						tiles[x][y] = new Tile(Tile.Type.GRASS, x, y);
-						spawn2 = new Spawn(x, y, tiles[x][y]);
+						spawn2 = new Spawn(x, y, tiles[x][y], Player.BLUE);
 						tiles[x][y].setEntity(spawn2);
 						player2.setSpawn(spawn2);
 						break;
 					case 622:
 						tiles[x][y] = new Tile(Tile.Type.ROCK, x, y);
-						spawn2 = new Spawn(x, y, tiles[x][y]);
+						spawn2 = new Spawn(x, y, tiles[x][y], Player.BLUE);
 						tiles[x][y].setEntity(spawn2);
 						player2.setSpawn(spawn2);
 						break;

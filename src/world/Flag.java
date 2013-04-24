@@ -1,8 +1,8 @@
 package world;
 
-import org.newdawn.slick.Graphics;
-
 import graphics.Drawable;
+
+import org.newdawn.slick.Graphics;
 
 public class Flag extends Drawable{
 	
@@ -11,7 +11,7 @@ public class Flag extends Drawable{
 	public Flag(int team){
 		this.setTeam(team);
 	}
-
+	
 	@Override
 	public void draw(Graphics g) {
 		

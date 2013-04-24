@@ -74,7 +74,6 @@ public class Game extends BasicGameState {
 			active = (active == player1) ? player2 : player1;
 			active.turn();
 		}
-		player1.getUnits().get(0).takeDamage(10);
 	}
 	
 	public void moveCamera(int delta) {
