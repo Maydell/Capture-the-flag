@@ -47,7 +47,7 @@ public class Spawn extends Drawable {
 		String teamString = (team == 0) ? "Red" : "Blue";
 		for (int i = 0; i < images.length; i++) {
 			try {
-				images[i] = new Image("images/Tiles/Spawn/" + teamString + "/"
+				images[i] = new Image("images/drawables/spawn/" + teamString + "/"
 						+ i + ".png");
 			} catch (SlickException e) {
 				e.printStackTrace();

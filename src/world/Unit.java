@@ -58,14 +58,14 @@ public class Unit extends Drawable {
 	public static void initUnits() {
 		images = new Image[Class.values().length][2];
 		try {
-			images[0][0] = new Image("images/units/unit_red_scout.png");
-			images[0][1] = new Image("images/units/unit_blue_scout.png");
-			images[1][0] = new Image("images/units/unit_red_soldier.png");
-			images[1][1] = new Image("images/units/unit_blue_soldier.png");
-			images[2][0] = new Image("images/units/unit_red_sniper.png");
-			images[2][1] = new Image("images/units/unit_blue_sniper.png");
-			images[3][0] = new Image("images/units/unit_red_medic.png");
-			images[3][1] = new Image("images/units/unit_blue_medic.png");
+			images[0][0] = new Image("images/drawables/units/unit_red_scout.png");
+			images[0][1] = new Image("images/drawables/units/unit_blue_scout.png");
+			images[1][0] = new Image("images/drawables/units/unit_red_soldier.png");
+			images[1][1] = new Image("images/drawables/units/unit_blue_soldier.png");
+			images[2][0] = new Image("images/drawables/units/unit_red_sniper.png");
+			images[2][1] = new Image("images/drawables/units/unit_blue_sniper.png");
+			images[3][0] = new Image("images/drawables/units/unit_red_medic.png");
+			images[3][1] = new Image("images/drawables/units/unit_blue_medic.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
