@@ -6,9 +6,9 @@ import graphics.Drawable;
 
 public class Flag extends Drawable{
 	
-	private Player.Team team;
+	private int team;
 	
-	public Flag(Player.Team team){
+	public Flag(int team){
 		this.setTeam(team);
 	}
 
@@ -17,11 +17,11 @@ public class Flag extends Drawable{
 		
 	}
 
-	public Player.Team getTeam() {
+	public int getTeam() {
 		return team;
 	}
 
-	public void setTeam(Player.Team team) {
+	public void setTeam(int team) {
 		this.team = team;
 	}
 	

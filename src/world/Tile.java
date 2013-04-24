@@ -16,18 +16,14 @@ public class Tile extends Drawable {
 	public static Image[] images;
 	
 	public enum Type {
-		EMPTY(true, 0), GRASS(false, 1), ROCK(false, 2), WALL_GRASS_VERT(true), WALL_GRASS_HOR(
-				true), WALL_GRASS_NW(true), WALL_GRASS_NE(true), WALL_GRASS_SE(
-				true), WALL_GRASS_SW(true), WALL_ROCK_VERT(true), WALL_ROCK_HOR(
-				true), WALL_ROCK_NW(true), WALL_ROCK_NE(true), WALL_ROCK_SE(
-				true), WALL_ROCK_SW(true);
+		EMPTY(true, 0), GRASS(false, 1), ROCK(false, 2), WALL_GRASS_VERT(true, 3), WALL_GRASS_HOR(
+				true, 4), WALL_GRASS_NW(true, 5), WALL_GRASS_NE(true, 6), WALL_GRASS_SE(
+				true, 7), WALL_GRASS_SW(true, 8), WALL_ROCK_VERT(true, 9), WALL_ROCK_HOR(
+				true, 10), WALL_ROCK_NW(true, 11), WALL_ROCK_NE(true, 12), WALL_ROCK_SE(
+				true, 13), WALL_ROCK_SW(true, 14);
 
 		boolean occupied;
 		int id;
-
-		Type(boolean occupied) {
-			this.occupied = occupied;
-		}
 		
 		Type(boolean occupied, int id) {
 			this.occupied = occupied;
@@ -35,16 +31,29 @@ public class Tile extends Drawable {
 		}
 	}
 
+	private boolean occupied;
 	ArrayList<Tile> neighbors;
 	private Type type;
 	private Drawable entity;
 
 	public static void initTiles() {
-		images = new Image[3];
+		images = new Image[15];
 		try {
 			images[0] = new Image("images/tiles/empty.png");
 			images[1] = new Image("images/tiles/grass.png");
 			images[2] = new Image("images/tiles/rock.png");
+			images[3] = new Image("images/tiles/wall_grass_vert.png");
+			images[4] = new Image("images/tiles/wall_grass_hor.png");
+			images[5] = new Image("images/tiles/wall_grass_NW.png");
+			images[6] = new Image("images/tiles/wall_grass_NE.png");
+			images[7] = new Image("images/tiles/wall_grass_SE.png");
+			images[8] = new Image("images/tiles/wall_grass_SW.png");
+			images[9] = new Image("images/tiles/wall_rock_vert.png");
+			images[10] = new Image("images/tiles/wall_rock_hor.png");
+			images[11] = new Image("images/tiles/wall_rock_NW.png");
+			images[12] = new Image("images/tiles/wall_rock_NE.png");
+			images[13] = new Image("images/tiles/wall_rock_SE.png");
+			images[14] = new Image("images/tiles/wall_rock_SW.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -55,6 +64,7 @@ public class Tile extends Drawable {
 		setxPos(xPos);
 		setyPos(yPos);
 		neighbors = new ArrayList<Tile>();
+		occupied = type.occupied;
 	}
 
 	public void addNeighbor(Tile neighbor) {
@@ -62,20 +72,22 @@ public class Tile extends Drawable {
 			return;
 		neighbors.add(neighbor);
 	}
-
-	public void addEntity(Drawable entity) {
-		this.setEntity(entity);
+	
+	public void removeEntity() {
+		entity = null;
+		occupied = false;
 	}
 
 	public boolean isOccupied() {
-		return false;
+		return occupied;
 	}
 
 	@Override
 	public void draw(Graphics g) {
-		g.setColor(Color.white);
+		g.setColor(Color.black);
 		g.drawImage(images[type.id], xPos * TILE_SIZE, yPos * TILE_SIZE);
 		g.drawRect(xPos * TILE_SIZE, yPos * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+		if (entity != null) entity.draw(g);
 	}
 
 	// TODO
@@ -89,6 +101,6 @@ public class Tile extends Drawable {
 
 	public void setEntity(Drawable entity) {
 		this.entity = entity;
+		occupied = true;
 	}
-
 }

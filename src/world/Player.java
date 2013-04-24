@@ -4,19 +4,38 @@ import java.util.ArrayList;
 
 public class Player {
 
-	public enum Team {
-		Red, Blue
+	public static final int RED = 0, BLUE = 1;
+	
+	private int team;
+	private Spawn spawn;
+	private boolean done = false;
+	
+	private ArrayList<Unit> units = new ArrayList<Unit>();
+	
+	public Player(int team) {
+		setTeam(team);
 	}
 	
-	private Team team;
-	private Spawn spawn;
+	public void turn() {
+		done = false;
+		spawn.spawn();
+	}
 	
-	private ArrayList<Unit> units;
-	
-	public Player(Spawn spawn, Team team) {
-		setSpawn(spawn);
-		setTeam(team);
-		// Spawn units
+	public boolean done() {
+		return done;
+	}
+
+	public void setupTeam() {
+		Unit unit1 = new Unit(Unit.Class.Scout, team), unit2 =  new Unit(Unit.Class.Soldier, team), 
+				unit3 = new Unit(Unit.Class.Sniper, team), unit4 = new Unit(Unit.Class.Medic, team);
+		units.add(unit1);
+		units.add(unit2);
+		units.add(unit3);
+		units.add(unit4);
+		spawn.spawn(unit1);
+		spawn.spawn(unit2);
+		spawn.spawn(unit3);
+		spawn.spawn(unit4);
 	}
 	
 	public void setSpawn(Spawn spawn) {
@@ -27,11 +46,11 @@ public class Player {
 		return spawn;
 	}
 
-	public Team getTeam() {
+	public int getTeam() {
 		return team;
 	}
 
-	public void setTeam(Team team) {
+	public void setTeam(int team) {
 		this.team = team;
 	}
 
