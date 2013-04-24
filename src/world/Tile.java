@@ -42,18 +42,18 @@ public class Tile extends Drawable {
 			images[0] = new Image("images/tiles/empty.png");
 			images[1] = new Image("images/tiles/grass.png");
 			images[2] = new Image("images/tiles/rock.png");
-			images[3] = new Image("images/tiles/wall_grass_vert.png");
-			images[4] = new Image("images/tiles/wall_grass_hor.png");
-			images[5] = new Image("images/tiles/wall_grass_NW.png");
-			images[6] = new Image("images/tiles/wall_grass_NE.png");
-			images[7] = new Image("images/tiles/wall_grass_SE.png");
-			images[8] = new Image("images/tiles/wall_grass_SW.png");
-			images[9] = new Image("images/tiles/wall_rock_vert.png");
-			images[10] = new Image("images/tiles/wall_rock_hor.png");
-			images[11] = new Image("images/tiles/wall_rock_NW.png");
-			images[12] = new Image("images/tiles/wall_rock_NE.png");
-			images[13] = new Image("images/tiles/wall_rock_SE.png");
-			images[14] = new Image("images/tiles/wall_rock_SW.png");
+			images[3] = new Image("images/tiles/Wall/wall_grass_vert.png");
+			images[4] = new Image("images/tiles/Wall/wall_grass_hor.png");
+			images[5] = new Image("images/tiles/Wall/wall_grass_NW.png");
+			images[6] = new Image("images/tiles/Wall/wall_grass_NE.png");
+			images[7] = new Image("images/tiles/Wall/wall_grass_SE.png");
+			images[8] = new Image("images/tiles/Wall/wall_grass_SW.png");
+			images[9] = new Image("images/tiles/Wall/wall_rock_vert.png");
+			images[10] = new Image("images/tiles/Wall/wall_rock_hor.png");
+			images[11] = new Image("images/tiles/Wall/wall_rock_NW.png");
+			images[12] = new Image("images/tiles/Wall/wall_rock_NE.png");
+			images[13] = new Image("images/tiles/Wall/wall_rock_SE.png");
+			images[14] = new Image("images/tiles/Wall/wall_rock_SW.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}

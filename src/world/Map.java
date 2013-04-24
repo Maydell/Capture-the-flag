@@ -138,8 +138,10 @@ public class Map {
 	}
 	
 	public Tile getTile(int x, int y) {
+		x /= Tile.TILE_SIZE;
+		y /= Tile.TILE_SIZE;
 		if (x < 0 || x >= tiles.length || y < 0 || y >= tiles[0].length ) return null;
-		return tiles[x / Tile.TILE_SIZE][y / Tile.TILE_SIZE];
+		return tiles[x][y];
 	}
 	
 	public void checkMap() {
