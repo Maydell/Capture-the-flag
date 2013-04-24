@@ -7,18 +7,28 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+/**
+ * A Unit is a object that the players can give orders to.
+ * 
+ * @author Mats Stichel, Isak Jagberg
+ * 
+ */
 public class Unit extends Drawable {
 
+	// Every Unit has a certain Class, which dictates its stats (health, damage,
+	// range etc.)
 	public static enum Class {
 
-		Scout(100, 40, 8, 8, 2, 0), Soldier(140, 50, 8, 4, 3, 1), Sniper(100, 80, 40, 2, 3, 2), Medic(100, -30, 4, 6, 3, 3);
-		
+		Scout(100, 40, 8, 8, 2, 0), Soldier(140, 50, 8, 4, 3, 1), Sniper(100,
+				80, 40, 2, 3, 2), Medic(100, -30, 4, 6, 3, 3);
+
 		int hp, damage;
 		int shootRange, moveRange;
 		int spawnTime;
 		int id;
-		
-		Class(int hp, int damage, int shootRange, int moveRange, int spawnTime, int id) {
+
+		Class(int hp, int damage, int shootRange, int moveRange, int spawnTime,
+				int id) {
 			this.hp = hp;
 			this.damage = damage;
 			this.shootRange = shootRange;
@@ -29,7 +39,7 @@ public class Unit extends Drawable {
 	}
 
 	public static Image[][] images;
-	
+
 	private boolean alive;
 	private Class unitClass;
 	private int team;
@@ -40,7 +50,11 @@ public class Unit extends Drawable {
 		setTeam(team);
 		hp = unitClass.hp;
 	}
-	
+
+	/**
+	 * Called at the beginning of the Game. Loads all the images that represent
+	 * different Classes of Unit.
+	 */
 	public static void initUnits() {
 		images = new Image[Class.values().length][2];
 		try {
@@ -57,24 +71,43 @@ public class Unit extends Drawable {
 		}
 	}
 
+	/**
+	 * Draws this Unit at the location of its parent Tile.
+	 */
 	@Override
 	public void draw(Graphics g) {
 		if (parent != null) {
-			g.drawImage(images[unitClass.id][team], parent.getxPos() * Tile.TILE_SIZE, parent.getyPos() * Tile.TILE_SIZE);
+			g.drawImage(images[unitClass.id][team], parent.getxPos()
+					* Tile.TILE_SIZE, parent.getyPos() * Tile.TILE_SIZE);
 			g.setColor(Color.black);
-			g.drawRect(parent.getxPos() * Tile.TILE_SIZE + (Tile.TILE_SIZE - 40) / 2, parent.getyPos() * Tile.TILE_SIZE - (Tile.TILE_SIZE - 40) / 2, 40, 5);
-			g.setColor(new Color(1 - (float) hp / unitClass.hp, (float) hp / unitClass.hp, 0f));
-			g.fillRect(1 + parent.getxPos() * Tile.TILE_SIZE + (Tile.TILE_SIZE - 40) / 2, 1 + parent.getyPos() * Tile.TILE_SIZE - (Tile.TILE_SIZE - 40) / 2, (int) (((double) hp / unitClass.hp) * 39), 4);
+			g.drawRect(parent.getxPos() * Tile.TILE_SIZE
+					+ (Tile.TILE_SIZE - 40) / 2, parent.getyPos()
+					* Tile.TILE_SIZE - (Tile.TILE_SIZE - 40) / 2, 40, 5);
+			g.setColor(new Color(1 - (float) hp / unitClass.hp, (float) hp
+					/ unitClass.hp, 0f));
+			g.fillRect(1 + parent.getxPos() * Tile.TILE_SIZE
+					+ (Tile.TILE_SIZE - 40) / 2, 1 + parent.getyPos()
+					* Tile.TILE_SIZE - (Tile.TILE_SIZE - 40) / 2,
+					(int) (((double) hp / unitClass.hp) * 39), 4);
 		}
 	}
-	
+
+	/**
+	 * Called when getting shot by a different Unit. Reduces the hp of this Unit
+	 * based on the damage of the attacking Unit.
+	 * 
+	 * @param damage
+	 *            The damage of the attacking Unit.
+	 */
 	public void takeDamage(int damage) {
 		hp -= damage;
+		// If hp is negative, the Unit is dead. This makes sure that the Unit
+		// will be added to the Spawn if he was killed.
 		if (hp < 0) {
 			hp = 0;
 		}
 	}
-	
+
 	public int getHp() {
 		return hp;
 	}

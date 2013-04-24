@@ -9,33 +9,47 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+/**
+ * CTF is the main class of the program.
+ * 
+ * @author Mats Stichel, Isak Jagberg
+ * 
+ */
 public class CTF extends StateBasedGame {
-	
+
+	// Used to set width and height of the window playing the game.
 	public static final int WIDTH = 800, HEIGHT = 600;
-	
+
 	public static final int MENU = 0, GAME = 1;
 	BasicGameState menu;
 
+	/**
+	 * Creates a new StateBasedGame.
+	 */
 	public CTF() {
 		super("Capture the flag");
 	}
 
+	/**
+	 * Creates the States used for the Game.
+	 */
 	@Override
 	public void initStatesList(GameContainer gc) throws SlickException {
 		addState(new Menu(MENU));
 		addState(new Game(GAME));
 		enterState(MENU);
 	}
-	
+
 	/**
-	 * @param args
+	 * The main method of the Game. Creates an AppGameContainer containing the
+	 * game.
 	 */
-	public static void main(String[] args) throws SlickException{
+	public static void main(String[] args) throws SlickException {
 		AppGameContainer gc = new AppGameContainer(new CTF());
 		gc.setShowFPS(false);
 		gc.setTargetFrameRate(60);
 		gc.setVSync(true);
-		
+
 		gc.setDisplayMode(WIDTH, HEIGHT, false);
 		gc.start();
 	}

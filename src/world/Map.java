@@ -6,6 +6,13 @@ import java.util.Scanner;
 
 import org.newdawn.slick.Graphics;
 
+/**
+ * The map reads and translates .map-files to in-game graphics. It also contains
+ * a 2d-array of all the tiles in the map.
+ * 
+ * @author Mats Stichel, Isak Jagberg
+ * 
+ */
 public class Map {
 
 	static Tile[][] tiles;
@@ -17,7 +24,11 @@ public class Map {
 		this.player2 = player2;
 		loadMap();
 	}
-	
+
+	/**
+	 * Reads a .map-file using a Scanner. Read the README.txt file for more
+	 * information.
+	 */
 	public void loadMap() {
 		Spawn spawn1, spawn2;
 		File file = new File("res/maps/Map.map");
@@ -125,52 +136,71 @@ public class Map {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
-		/*
-		System.out.println(name + "\n\n");
-		for (int x = 0; x < tiles.length; x++) {
-			for(int y = 0; y < tiles[0].length; y++) {
-				System.out.print(tiles[x][y] + " ");
-			}
-			System.out.println();
-		}
-		*/
 	}
-	
+
+	/**
+	 * Returns the Tile at the given x, y-coordinates. Divides by the size of
+	 * the Tile so that the index is correct. Returns null if given negative
+	 * coordinates.
+	 * 
+	 * @param x
+	 *            The x-coordinate of the wanted Tile.
+	 * @param y
+	 *            The y-coordinate of the wanted Tile.
+	 * @return The tile at (x, y).
+	 */
 	public Tile getTile(int x, int y) {
 		x /= Tile.TILE_SIZE;
 		y /= Tile.TILE_SIZE;
-		if (x < 0 || x >= tiles.length || y < 0 || y >= tiles[0].length ) return null;
+		if (x < 0 || x >= tiles.length || y < 0 || y >= tiles[0].length)
+			return null;
 		return tiles[x][y];
 	}
-	
+
+	/**
+	 * checkMap() checks so that the .map-file that was loaded was written
+	 * correctly.
+	 */
 	public void checkMap() {
 		if (player1.getSpawn() == null || player2.getSpawn() == null) {
+			// The map must have exactly 1 spawn per player.
 			System.err.println("Not enough spawns.");
 			System.exit(0);
 		}
 
-		if (player1.getSpawn().getParent().neighbors.size() != 4 || player2.getSpawn().getParent().neighbors.size() != 4) {
+		if (player1.getSpawn().getParent().neighbors.size() != 4
+				|| player2.getSpawn().getParent().neighbors.size() != 4) {
+			// The four neighbors to the Spawn objects have to be unoccupied.
 			System.err.println("Neighbors to spawn can't be occupied.");
 			System.exit(0);
 		}
 	}
-	
+
+	/**
+	 * Iterates through Tile[][] tiles and connects the current Tile to any
+	 * unoccupied Tile 1 step to the right, left, up or down.
+	 */
 	public void connectTiles() {
-		for(int x = 0; x < tiles.length; x++) {
+		for (int x = 0; x < tiles.length; x++) {
 			for (int y = 0; y < tiles[0].length; y++) {
-				if(x > 0) 
-					tiles[x][y].addNeighbor(tiles[x-1][y]);
-				if(x < tiles.length - 1) 
-					tiles[x][y].addNeighbor(tiles[x+1][y]);
-				if(y > 0) 
-					tiles[x][y].addNeighbor(tiles[x][y-1]);
+				if (x > 0)
+					tiles[x][y].addNeighbor(tiles[x - 1][y]);
+				if (x < tiles.length - 1)
+					tiles[x][y].addNeighbor(tiles[x + 1][y]);
+				if (y > 0)
+					tiles[x][y].addNeighbor(tiles[x][y - 1]);
 				if (y < tiles[0].length - 1)
-					tiles[x][y].addNeighbor(tiles[x][y+1]);
+					tiles[x][y].addNeighbor(tiles[x][y + 1]);
 			}
 		}
 	}
 
+	/**
+	 * Draws the Tiles in the map.
+	 * 
+	 * @param g
+	 *            The given Graphics object.
+	 */
 	public void draw(Graphics g) {
 		for (int x = 0; x < tiles.length; x++) {
 			for (int y = 0; y < tiles[0].length; y++) {

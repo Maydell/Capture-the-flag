@@ -9,22 +9,29 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+/**
+ * A Tile is what the game's map is built up of. Each Tile is stored in the list
+ * in the Game's Map-object.
+ * 
+ * @author Mats Stichel, Isak Jagberg
+ * 
+ */
 public class Tile extends Drawable {
 
 	public static final int TILE_SIZE = 50;
-	
+
 	public static Image[] images;
-	
+
 	public enum Type {
-		EMPTY(true, 0), GRASS(false, 1), ROCK(false, 2), WALL_GRASS_VERT(true, 3), WALL_GRASS_HOR(
-				true, 4), WALL_GRASS_NW(true, 5), WALL_GRASS_NE(true, 6), WALL_GRASS_SE(
-				true, 7), WALL_GRASS_SW(true, 8), WALL_ROCK_VERT(true, 9), WALL_ROCK_HOR(
-				true, 10), WALL_ROCK_NW(true, 11), WALL_ROCK_NE(true, 12), WALL_ROCK_SE(
-				true, 13), WALL_ROCK_SW(true, 14);
+		EMPTY(true, 0), GRASS(false, 1), ROCK(false, 2), WALL_GRASS_VERT(true,
+				3), WALL_GRASS_HOR(true, 4), WALL_GRASS_NW(true, 5), WALL_GRASS_NE(
+				true, 6), WALL_GRASS_SE(true, 7), WALL_GRASS_SW(true, 8), WALL_ROCK_VERT(
+				true, 9), WALL_ROCK_HOR(true, 10), WALL_ROCK_NW(true, 11), WALL_ROCK_NE(
+				true, 12), WALL_ROCK_SE(true, 13), WALL_ROCK_SW(true, 14);
 
 		boolean occupied;
 		int id;
-		
+
 		Type(boolean occupied, int id) {
 			this.occupied = occupied;
 			this.id = id;
@@ -36,6 +43,10 @@ public class Tile extends Drawable {
 	private Type type;
 	private Drawable entity;
 
+	/**
+	 * Called when entering the "Game" gamestate. Loads the graphics for all the
+	 * types of Tile.
+	 */
 	public static void initTiles() {
 		images = new Image[15];
 		try {
@@ -58,7 +69,7 @@ public class Tile extends Drawable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public Tile(Type type, int xPos, int yPos) {
 		this.type = type;
 		setxPos(xPos);
@@ -67,12 +78,19 @@ public class Tile extends Drawable {
 		occupied = type.occupied;
 	}
 
+	/**
+	 * Checks if the given Tile is occupied. If not, it's added to this tile's
+	 * neighbor list.
+	 * 
+	 * @param neighbor
+	 *            The given Tile.
+	 */
 	public void addNeighbor(Tile neighbor) {
 		if (neighbor.type.occupied)
 			return;
 		neighbors.add(neighbor);
 	}
-	
+
 	public void removeEntity() {
 		entity = null;
 		occupied = false;
@@ -82,17 +100,16 @@ public class Tile extends Drawable {
 		return occupied;
 	}
 
+	/**
+	 * Draws the tile, using its respective Image object.
+	 */
 	@Override
 	public void draw(Graphics g) {
 		g.setColor(Color.black);
 		g.drawImage(images[type.id], xPos * TILE_SIZE, yPos * TILE_SIZE);
 		g.drawRect(xPos * TILE_SIZE, yPos * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-		if (entity != null) entity.draw(g);
-	}
-
-	// TODO
-	public String toString() {
-		return type.name();
+		if (entity != null)
+			entity.draw(g);
 	}
 
 	public Drawable getEntity() {
