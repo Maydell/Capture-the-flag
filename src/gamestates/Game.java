@@ -75,10 +75,10 @@ public class Game extends BasicGameState {
 					- CTF.WIDTH / 2, CTF.HEIGHT - Mouse.getY() + (int) c.getY()
 					- CTF.HEIGHT / 2);
 			if (mouseOver != null) {
-				g.setColor(new Color(.5f, .5f, .5f));
-				g.drawRect(mouseOver.getxPos() * Tile.TILE_SIZE,
-						mouseOver.getyPos() * Tile.TILE_SIZE, Tile.TILE_SIZE,
-						Tile.TILE_SIZE);
+				g.setColor(new Color(1f, 1f, 1f, .2f));
+				g.fillRect(mouseOver.getxPos() * Tile.TILE_SIZE + 1,
+						mouseOver.getyPos() * Tile.TILE_SIZE + 1, Tile.TILE_SIZE - 1,
+						Tile.TILE_SIZE - 1);
 			}
 		}
 		g.popTransform();
