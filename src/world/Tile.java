@@ -70,8 +70,7 @@ public class Tile extends Drawable {
 		}
 	}
 
-	public Tile(GUIContext container, Type type, int xPos, int yPos) {
-		super(container, images[type.id]);
+	public Tile(Type type, int xPos, int yPos) {
 		this.type = type;
 		setxPos(xPos);
 		setyPos(yPos);

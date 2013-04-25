@@ -1,8 +1,6 @@
 package graphics;
 
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.gui.GUIContext;
 
 import world.Tile;
 import world.Unit;
@@ -14,15 +12,7 @@ import world.Unit;
  * @author Mats Stichel, Isak Jagberg
  * 
  */
-public abstract class Drawable extends Button {
-
-	public Drawable(GUIContext container, Image image, Image hover, int x, int y) {
-		super(container, image, hover, x, y);
-	}
-	
-	public Drawable(GUIContext container, Image image) {
-		this(container, image, image, 0, 0);
-	}
+public abstract class Drawable {
 
 	protected int xPos, yPos;
 

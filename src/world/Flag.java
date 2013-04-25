@@ -16,7 +16,6 @@ public class Flag extends Drawable {
 	private int team;
 
 	public Flag(int team) {
-		super(null, null, null, 0, 0);
 		this.setTeam(team);
 	}
 
