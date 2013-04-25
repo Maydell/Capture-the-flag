@@ -1,6 +1,7 @@
 package gamestates;
 
 import graphics.Drawable;
+import graphics.HUD;
 import main.CTF;
 
 import org.lwjgl.input.Mouse;
@@ -30,6 +31,7 @@ public class Game extends BasicGameState {
 	Map map;
 	Camera c;
 	Player player1, player2, active;
+	HUD hud;
 
 	boolean up, right, down, left;
 
@@ -44,11 +46,12 @@ public class Game extends BasicGameState {
 	@Override
 	public void enter(GameContainer gc, StateBasedGame sbg) {
 		Drawable.init();
-		player1 = new Player(Player.RED);
-		player2 = new Player(Player.BLUE);
+		player1 = new Player(gc, Player.RED);
+		player2 = new Player(gc, Player.BLUE);
 		map = new Map(player1, player2);
 		player1.setupTeam();
 		player2.setupTeam();
+		hud = new HUD(gc, player1, player2);
 		c = new Camera();
 		c.setX(400);
 		c.setY(200);
@@ -82,6 +85,7 @@ public class Game extends BasicGameState {
 			}
 		}
 		g.popTransform();
+		hud.draw(g);
 	}
 
 	@Override

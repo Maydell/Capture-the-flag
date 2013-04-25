@@ -1,10 +1,12 @@
 package world;
 
 import java.io.File;
+
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.gui.*;
 
 /**
  * The map reads and translates .map-files to in-game graphics. It also contains
@@ -18,6 +20,7 @@ public class Map {
 	static Tile[][] tiles;
 	Player player1, player2;
 	String name;
+	GUIContext container;
 
 	public Map(Player player1, Player player2) {
 		this.player1 = player1;
@@ -105,25 +108,25 @@ public class Map {
 						break;
 					case 611:
 						tiles[x][y] = new Tile(Tile.Type.GRASS, x, y);
-						spawn1 = new Spawn(x, y, tiles[x][y], Player.RED);
+						spawn1 = new Spawn(container, x, y, tiles[x][y], Player.RED);
 						tiles[x][y].setEntity(spawn1);
 						player1.setSpawn(spawn1);
 						break;
 					case 612:
 						tiles[x][y] = new Tile(Tile.Type.ROCK, x, y);
-						spawn1 = new Spawn(x, y, tiles[x][y], Player.RED);
+						spawn1 = new Spawn(container, x, y, tiles[x][y], Player.RED);
 						tiles[x][y].setEntity(spawn1);
 						player1.setSpawn(spawn1);
 						break;
 					case 621:
 						tiles[x][y] = new Tile(Tile.Type.GRASS, x, y);
-						spawn2 = new Spawn(x, y, tiles[x][y], Player.BLUE);
+						spawn2 = new Spawn(container, x, y, tiles[x][y], Player.BLUE);
 						tiles[x][y].setEntity(spawn2);
 						player2.setSpawn(spawn2);
 						break;
 					case 622:
 						tiles[x][y] = new Tile(Tile.Type.ROCK, x, y);
-						spawn2 = new Spawn(x, y, tiles[x][y], Player.BLUE);
+						spawn2 = new Spawn(container, x, y, tiles[x][y], Player.BLUE);
 						tiles[x][y].setEntity(spawn2);
 						player2.setSpawn(spawn2);
 						break;

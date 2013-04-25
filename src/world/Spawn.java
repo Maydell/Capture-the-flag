@@ -10,6 +10,7 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.gui.*;
 
 /**
  * A Spawn-object takes care of spawning units.
@@ -24,8 +25,9 @@ public class Spawn extends Drawable {
 	// reaches 0 (at which point the unit is spawned).
 	private HashMap<Unit, Integer> spawnList = new HashMap<Unit, Integer>();
 	private Animation animation;
-
-	public Spawn(int x, int y, Tile parent, int team) {
+	
+	public Spawn(GUIContext container, int x, int y, Tile parent, int team) {
+		super(container, null, null, 0, 0);
 		setxPos(x);
 		setyPos(y);
 		this.parent = parent;
@@ -66,7 +68,7 @@ public class Spawn extends Drawable {
 	 * @return A new version of the given unit.
 	 */
 	public Unit createUnit(Unit.Class unitClass, int team) {
-		Unit unit = new Unit(unitClass, team);
+		Unit unit = new Unit(container, unitClass, team);
 		spawn(unit);
 		return unit;
 	}

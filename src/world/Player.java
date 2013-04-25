@@ -2,6 +2,8 @@ package world;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.gui.*;
+
 /**
  * Player represents a human player. It takes care of the units owned by the
  * player and the Spawn related to the player's team.
@@ -16,10 +18,14 @@ public class Player {
 	private int team;
 	private Spawn spawn;
 	private boolean done = false;
+	private int score;
+	
+	GUIContext container;
 
 	private ArrayList<Unit> units = new ArrayList<Unit>();
 
-	public Player(int team) {
+	public Player(GUIContext container, int team) {
+		this.container = container;
 		setTeam(team);
 	}
 
@@ -30,7 +36,7 @@ public class Player {
 		done = false; // Done is set to false to show that the player is not
 						// done with his turn.
 		spawn.spawn(); // The units in the player's spawn-list are moved one
-						// step closer to spawning.
+						// step closer to spawning or are spawned.
 	}
 
 	public boolean done() {
@@ -42,9 +48,9 @@ public class Player {
 	 */
 	public void setupTeam() {
 		// Creates four units, owned by the player.
-		Unit unit1 = new Unit(Unit.Class.Scout, team), unit2 = new Unit(
-				Unit.Class.Soldier, team), unit3 = new Unit(Unit.Class.Sniper,
-				team), unit4 = new Unit(Unit.Class.Medic, team);
+		Unit unit1 = new Unit(container, Unit.Class.Scout, team), unit2 = new Unit(
+				container, Unit.Class.Soldier, team), unit3 = new Unit(container, Unit.Class.Sniper,
+				team), unit4 = new Unit(container, Unit.Class.Medic, team);
 
 		// Adds the four units to the list.
 		units.add(unit1);
@@ -81,5 +87,13 @@ public class Player {
 
 	public void setUnits(ArrayList<Unit> units) {
 		this.units = units;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
 	}
 }

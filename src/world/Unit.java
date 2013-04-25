@@ -6,6 +6,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.gui.*;
 
 /**
  * A Unit is a object that the players can give orders to.
@@ -40,12 +41,17 @@ public class Unit extends Drawable {
 
 	public static Image[][] images;
 
-	private boolean alive;
 	private Class unitClass;
 	private int team;
 	private int hp;
 
-	public Unit(Class unitClass, int team) {
+	public Unit(GUIContext container, Class unitClass, int team) {
+		super(null, null, null, 0, 0);
+		Image image = images[unitClass.id][team];
+		Image hover = images[unitClass.id][team].copy();
+		hover.setImageColor(.8f, .8f, .8f);
+		setNormalImage(image);
+		setMouseOverImage(hover);
 		setUnitClass(unitClass);
 		setTeam(team);
 		hp = unitClass.hp;
@@ -117,11 +123,11 @@ public class Unit extends Drawable {
 	}
 
 	public boolean isAlive() {
-		return alive;
+		return hp > 0;
 	}
 
 	public void setAlive(boolean alive) {
-		this.alive = alive;
+		this.hp = unitClass.hp;
 	}
 
 	public Class getUnitClass() {
@@ -138,5 +144,9 @@ public class Unit extends Drawable {
 
 	public void setTeam(int team) {
 		this.team = team;
+	}
+	
+	public int getID() {
+		return unitClass.id;
 	}
 }
