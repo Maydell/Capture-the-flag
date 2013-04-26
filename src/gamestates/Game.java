@@ -16,6 +16,7 @@ import world.Camera;
 import world.Map;
 import world.Player;
 import world.Tile;
+import graphics.HUD;
 
 /**
  * This gamestate contains the information relevant to the Game, including
@@ -30,6 +31,7 @@ public class Game extends BasicGameState {
 	Map map;
 	Camera c;
 	Player player1, player2, active;
+	HUD hud;
 
 	boolean up, right, down, left;
 
@@ -49,6 +51,7 @@ public class Game extends BasicGameState {
 		map = new Map(player1, player2);
 		player1.setupTeam();
 		player2.setupTeam();
+		hud = new HUD(gc, player1, player2);
 		c = new Camera();
 		c.setX(400);
 		c.setY(200);
@@ -82,6 +85,7 @@ public class Game extends BasicGameState {
 			}
 		}
 		g.popTransform();
+		hud.draw(g);
 	}
 
 	@Override
@@ -101,7 +105,7 @@ public class Game extends BasicGameState {
 	 *            The tick time.
 	 */
 	public void moveCamera(int delta) {
-		float speed = 0.5f;
+		float speed = 0.2f;
 		if (up && !down) {
 			c.move(0, -speed * delta);
 		} else if (down && !up) {

@@ -131,6 +131,10 @@ public class Unit extends Drawable {
 	public void setUnitClass(Class unitClass) {
 		this.unitClass = unitClass;
 	}
+	
+	public int getID() {
+		return unitClass.id;
+	}
 
 	public int getTeam() {
 		return team;
