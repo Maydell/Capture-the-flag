@@ -48,8 +48,8 @@ public class Spawn extends Drawable {
 		String teamString = (team == 0) ? "Red" : "Blue";
 		for (int i = 0; i < images.length; i++) {
 			try {
-				images[i] = new Image("images/drawables/spawn/" + teamString + "/"
-						+ i + ".png");
+				images[i] = new Image("images/drawables/spawn/" + teamString
+						+ "/" + i + ".png");
 			} catch (SlickException e) {
 				e.printStackTrace();
 			}
@@ -79,7 +79,7 @@ public class Spawn extends Drawable {
 	 *            The unit that will spawn.
 	 */
 	public void spawn(Unit unit) {
-		System.out.println("Spawned player!");
+		// System.out.println("Spawned player!");
 
 		// Iterate through the neigbors, looking for a Tile that is not occupied
 		// and then puts the given unit on that Tile.

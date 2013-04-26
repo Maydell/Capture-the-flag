@@ -15,9 +15,14 @@ import graphics.Drawable;
  */
 public class Camera {
 
-	private float x; // The camera's x-coordinate
-	private float y; // The camera's y-coordinate
+	private int x; // The camera's x-coordinate
+	private int y; // The camera's y-coordinate
+	private float speed; // The movement speed of the camera.
 
+	public Camera(float speed) {
+		setSpeed(speed);
+	}
+	
 	/**
 	 * Moves the camera to the target Drawable.
 	 * 
@@ -50,7 +55,7 @@ public class Camera {
 		return x;
 	}
 
-	public void setX(float x) {
+	public void setX(int x) {
 		this.x = x;
 	}
 
@@ -58,7 +63,15 @@ public class Camera {
 		return y;
 	}
 
-	public void setY(float y) {
+	public void setY(int y) {
 		this.y = y;
+	}
+	
+	public float getSpeed() {
+		return speed;
+	}
+	
+	public void setSpeed(float speed) {
+		this.speed = speed;
 	}
 }

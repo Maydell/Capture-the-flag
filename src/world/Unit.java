@@ -93,7 +93,7 @@ public class Unit extends Drawable {
 	}
 
 	/**
-	 * Called when getting shot by a different Unit. Reduces the hp of this Unit
+	 * Called when getting damaged by a different Unit. Reduces the hp of this Unit
 	 * based on the damage of the attacking Unit.
 	 * 
 	 * @param damage

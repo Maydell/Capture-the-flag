@@ -2,7 +2,6 @@ package gamestates;
 
 import graphics.Drawable;
 import main.CTF;
-
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -11,7 +10,6 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-
 import world.Camera;
 import world.Map;
 import world.Player;
@@ -52,7 +50,7 @@ public class Game extends BasicGameState {
 		player1.setupTeam();
 		player2.setupTeam();
 		hud = new HUD(gc, player1, player2);
-		c = new Camera();
+		c = new Camera(0.5f);
 		c.setX(400);
 		c.setY(200);
 		active = player1;
@@ -68,7 +66,7 @@ public class Game extends BasicGameState {
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
-		g.setColor(Color.black);
+		g.setColor(Color.cyan);
 		g.fillRect(0, 0, CTF.WIDTH, CTF.HEIGHT);
 		g.pushTransform();
 		{
@@ -78,10 +76,11 @@ public class Game extends BasicGameState {
 					- CTF.WIDTH / 2, CTF.HEIGHT - Mouse.getY() + (int) c.getY()
 					- CTF.HEIGHT / 2);
 			if (mouseOver != null && mouseOver.getType() != Tile.Type.EMPTY) {
+				// System.out.println("x: " + mouseOver.getxPos() + ", y: " + mouseOver.getyPos() + "\nMouse x: " + Mouse.getX() + ", y: " + Mouse.getY());
 				g.setColor(new Color(1f, 1f, 1f, .2f));
 				g.fillRect(mouseOver.getxPos() * Tile.TILE_SIZE + 1,
-						mouseOver.getyPos() * Tile.TILE_SIZE + 1, Tile.TILE_SIZE - 1,
-						Tile.TILE_SIZE - 1);
+						mouseOver.getyPos() * Tile.TILE_SIZE + 1,
+						Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1);
 			}
 		}
 		g.popTransform();
@@ -105,7 +104,7 @@ public class Game extends BasicGameState {
 	 *            The tick time.
 	 */
 	public void moveCamera(int delta) {
-		float speed = 0.5f;
+		float speed = c.getSpeed();
 		if (up && !down) {
 			c.move(0, -speed * delta);
 		} else if (down && !up) {

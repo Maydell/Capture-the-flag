@@ -12,6 +12,11 @@ import org.newdawn.slick.Color;
 import world.Player;
 import world.Unit;
 
+/**
+ * The HUD class takes care of constant elements on the screen, like action bars and unit lists.
+ * @author Mats Stichel, Isak Jagberg
+ *
+ */
 public class HUD {
 
 	Player player1, player2;
@@ -39,11 +44,11 @@ public class HUD {
 	}
 	
 	public void draw(Graphics g) {
-		g.setColor(Color.black);
+		g.setColor(Color.white);
 		int centerX = CTF.WIDTH / 2;
 		g.drawString("|", centerX, 10);
 		g.drawString("" + player1.getScore(), centerX - 20, 10);
-		g.drawString("" + player2.getScore(), centerX + 5, 10);
+		g.drawString("" + player2.getScore(), centerX + 10, 10);
 		for(Button b : unitButtons) {
 			b.render(container, g);
 		}
