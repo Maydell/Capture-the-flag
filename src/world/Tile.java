@@ -115,6 +115,10 @@ public class Tile extends Drawable {
 	public Drawable getEntity() {
 		return entity;
 	}
+	
+	public Type getType() {
+		return type;
+	}
 
 	public void setEntity(Drawable entity) {
 		this.entity = entity;

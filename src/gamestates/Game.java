@@ -68,7 +68,7 @@ public class Game extends BasicGameState {
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
-		g.setColor(Color.cyan);
+		g.setColor(Color.black);
 		g.fillRect(0, 0, CTF.WIDTH, CTF.HEIGHT);
 		g.pushTransform();
 		{
@@ -77,7 +77,7 @@ public class Game extends BasicGameState {
 			Tile mouseOver = map.getTile(Mouse.getX() + (int) c.getX()
 					- CTF.WIDTH / 2, CTF.HEIGHT - Mouse.getY() + (int) c.getY()
 					- CTF.HEIGHT / 2);
-			if (mouseOver != null) {
+			if (mouseOver != null && mouseOver.getType() != Tile.Type.EMPTY) {
 				g.setColor(new Color(1f, 1f, 1f, .2f));
 				g.fillRect(mouseOver.getxPos() * Tile.TILE_SIZE + 1,
 						mouseOver.getyPos() * Tile.TILE_SIZE + 1, Tile.TILE_SIZE - 1,
@@ -105,7 +105,7 @@ public class Game extends BasicGameState {
 	 *            The tick time.
 	 */
 	public void moveCamera(int delta) {
-		float speed = 0.2f;
+		float speed = 0.5f;
 		if (up && !down) {
 			c.move(0, -speed * delta);
 		} else if (down && !up) {

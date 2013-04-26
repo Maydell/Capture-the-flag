@@ -30,7 +30,8 @@ public class Spawn extends Drawable {
 		setyPos(y);
 		this.parent = parent;
 		Image[] images = loadImages(team);
-		animation = new Animation(images, 500);
+		animation = new Animation(images, 200);
+		animation.setPingPong(true);
 		animation.start();
 	}
 
