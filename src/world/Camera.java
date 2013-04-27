@@ -51,7 +51,7 @@ public class Camera {
 		y += dy;
 	}
 
-	public float getX() {
+	public int getX() {
 		return x;
 	}
 
@@ -59,7 +59,7 @@ public class Camera {
 		this.x = x;
 	}
 
-	public float getY() {
+	public int getY() {
 		return y;
 	}
 

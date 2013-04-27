@@ -150,10 +150,11 @@ public class Map {
 	 * @return The tile at (x, y).
 	 */
 	public Tile getTile(int x, int y) {
+		if (x < 0 || x >= tiles.length * Tile.TILE_SIZE || y < 0
+				|| y >= tiles[0].length * Tile.TILE_SIZE)
+			return null;
 		x /= Tile.TILE_SIZE;
 		y /= Tile.TILE_SIZE;
-		if (x < 0 || x >= tiles.length || y < 0 || y >= tiles[0].length)
-			return null;
 		return tiles[x][y];
 	}
 
