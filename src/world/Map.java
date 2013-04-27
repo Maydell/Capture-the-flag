@@ -205,7 +205,8 @@ public class Map {
 	public void draw(Graphics g) {
 		for (int x = 0; x < tiles.length; x++) {
 			for (int y = 0; y < tiles[0].length; y++) {
-				tiles[x][y].draw(g);
+				if (tiles[x][y].getType() != Tile.Type.EMPTY) //Don't draw empty tiles.
+					tiles[x][y].draw(g);
 			}
 		}
 	}
