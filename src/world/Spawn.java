@@ -1,6 +1,6 @@
 package world;
 
-import graphics.Drawable;
+import graphics.Entity;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -17,7 +17,7 @@ import org.newdawn.slick.SlickException;
  * @author Mats Stichel, Isak Jagberg
  * 
  */
-public class Spawn extends Drawable {
+public class Spawn extends Entity {
 
 	// The spawnList stores any dead unit together with its spawn time. At the
 	// start of the player's turn, the spawn time is reduced by 1, until it
@@ -25,9 +25,7 @@ public class Spawn extends Drawable {
 	private HashMap<Unit, Integer> spawnList = new HashMap<Unit, Integer>();
 	private Animation animation;
 
-	public Spawn(int x, int y, Tile parent, int team) {
-		setxPos(x);
-		setyPos(y);
+	public Spawn(Tile parent, int team) {
 		this.parent = parent;
 		Image[] images = loadImages(team);
 		animation = new Animation(images, 200);
@@ -124,7 +122,7 @@ public class Spawn extends Drawable {
 	 */
 	@Override
 	public void draw(Graphics g) {
-		animation.draw(xPos * Tile.TILE_SIZE, yPos * Tile.TILE_SIZE);
+		animation.draw(getxPos() * Tile.TILE_SIZE, getyPos() * Tile.TILE_SIZE);
 	}
 
 }

@@ -1,6 +1,5 @@
 package gamestates;
 
-import graphics.Drawable;
 import main.CTF;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
@@ -14,11 +13,14 @@ import world.Camera;
 import world.Map;
 import world.Player;
 import world.Tile;
+import world.Unit;
 import graphics.HUD;
 
 /**
  * This gamestate contains the information relevant to the Game, including
  * things like the Map, players and camera.
+ * It handles the input and distributes it to the contained elements.
+ * It handles the turns.
  * 
  * @author Mats Stichel, Isak Jagberg
  * 
@@ -43,16 +45,24 @@ public class Game extends BasicGameState {
 	 */
 	@Override
 	public void enter(GameContainer gc, StateBasedGame sbg) {
-		Drawable.init();
+		Tile.initTiles();
+		Unit.initUnits();
+		// Creates players
 		player1 = new Player(Player.RED);
 		player2 = new Player(Player.BLUE);
+		// Creates map
 		map = new Map(player1, player2);
+		// Sets up units for players
 		player1.setupTeam();
 		player2.setupTeam();
+		// Creates HUD
 		hud = new HUD(gc, player1, player2);
+		// Creates camera
 		c = new Camera(0.5f);
+		// Set temporary position for camera
 		c.setX(400);
 		c.setY(200);
+		// Starts turn for player 1
 		active = player1;
 		active.turn();
 	}

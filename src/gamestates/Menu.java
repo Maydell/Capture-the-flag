@@ -15,6 +15,7 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 
 /**
  * This gamestate contains the information relevant to the main menu.
+ * It shows the start and quit buttons.
  * 
  * @author Mats Stichel, Isak Jagberg
  * 

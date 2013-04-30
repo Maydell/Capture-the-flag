@@ -1,6 +1,6 @@
 package world;
 
-import graphics.Drawable;
+import graphics.Entity;
 
 import java.util.ArrayList;
 
@@ -16,11 +16,7 @@ import org.newdawn.slick.SlickException;
  * @author Mats Stichel, Isak Jagberg
  * 
  */
-public class Tile extends Drawable {
-
-	public static final int TILE_SIZE = 50;
-
-	public static Image[] images;
+public class Tile {
 
 	public enum Type {
 		EMPTY(true, 0), GRASS(false, 1), ROCK(false, 2), WALL_GRASS_VERT(true,
@@ -38,10 +34,24 @@ public class Tile extends Drawable {
 		}
 	}
 
+	public static final int TILE_SIZE = 50;
+
+	public static Image[] images;
+
 	private boolean occupied;
 	ArrayList<Tile> neighbors;
 	private Type type;
-	private Drawable entity;
+	private Entity entity;
+	
+	private int xPos, yPos;
+
+	public Tile(Type type, int xPos, int yPos) {
+		this.type = type;
+		setxPos(xPos);
+		setyPos(yPos);
+		neighbors = new ArrayList<Tile>();
+		occupied = type.occupied;
+	}
 
 	/**
 	 * Called when entering the "Game" gamestate. Loads the graphics for all the
@@ -82,14 +92,6 @@ public class Tile extends Drawable {
 		}
 	}
 
-	public Tile(Type type, int xPos, int yPos) {
-		this.type = type;
-		setxPos(xPos);
-		setyPos(yPos);
-		neighbors = new ArrayList<Tile>();
-		occupied = type.occupied;
-	}
-
 	/**
 	 * Checks if the given Tile is occupied. If not, it's added to this tile's
 	 * neighbor list.
@@ -115,7 +117,6 @@ public class Tile extends Drawable {
 	/**
 	 * Draws the tile, using its respective Image object.
 	 */
-	@Override
 	public void draw(Graphics g) {
 		g.setColor(Color.black);
 		g.drawImage(images[type.id], xPos * TILE_SIZE, yPos * TILE_SIZE);
@@ -124,7 +125,7 @@ public class Tile extends Drawable {
 			entity.draw(g);
 	}
 
-	public Drawable getEntity() {
+	public Entity getEntity() {
 		return entity;
 	}
 
@@ -132,8 +133,24 @@ public class Tile extends Drawable {
 		return type;
 	}
 
-	public void setEntity(Drawable entity) {
+	public void setEntity(Entity entity) {
 		this.entity = entity;
 		occupied = true;
+	}
+
+	public int getxPos() {
+		return xPos;
+	}
+
+	public void setxPos(int xPos) {
+		this.xPos = xPos;
+	}
+
+	public int getyPos() {
+		return yPos;
+	}
+
+	public void setyPos(int yPos) {
+		this.yPos = yPos;
 	}
 }
