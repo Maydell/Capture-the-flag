@@ -1,6 +1,6 @@
 package world;
 
-import graphics.Entity;
+import graphics.Drawable;
 
 import org.newdawn.slick.Graphics;
 
@@ -11,7 +11,7 @@ import org.newdawn.slick.Graphics;
  * @author Mats Stichel, Isak Jagberg
  * 
  */
-public class Flag extends Entity {
+public class Flag extends Drawable {
 
 	private int team;
 

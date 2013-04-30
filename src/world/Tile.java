@@ -1,6 +1,6 @@
 package world;
 
-import graphics.Entity;
+import graphics.Drawable;
 
 import java.util.ArrayList;
 
@@ -16,7 +16,11 @@ import org.newdawn.slick.SlickException;
  * @author Mats Stichel, Isak Jagberg
  * 
  */
-public class Tile {
+public class Tile extends Drawable {
+
+	public static final int TILE_SIZE = 50;
+
+	public static Image[] images;
 
 	public enum Type {
 		EMPTY(true, 0), GRASS(false, 1), ROCK(false, 2), WALL_GRASS_VERT(true,
@@ -34,24 +38,10 @@ public class Tile {
 		}
 	}
 
-	public static final int TILE_SIZE = 50;
-
-	public static Image[] images;
-
 	private boolean occupied;
 	ArrayList<Tile> neighbors;
 	private Type type;
-	private Entity entity;
-	
-	private int xPos, yPos;
-
-	public Tile(Type type, int xPos, int yPos) {
-		this.type = type;
-		setxPos(xPos);
-		setyPos(yPos);
-		neighbors = new ArrayList<Tile>();
-		occupied = type.occupied;
-	}
+	private Drawable entity;
 
 	/**
 	 * Called when entering the "Game" gamestate. Loads the graphics for all the
@@ -92,6 +82,14 @@ public class Tile {
 		}
 	}
 
+	public Tile(Type type, int xPos, int yPos) {
+		this.type = type;
+		setxPos(xPos);
+		setyPos(yPos);
+		neighbors = new ArrayList<Tile>();
+		occupied = type.occupied;
+	}
+
 	/**
 	 * Checks if the given Tile is occupied. If not, it's added to this tile's
 	 * neighbor list.
@@ -117,6 +115,7 @@ public class Tile {
 	/**
 	 * Draws the tile, using its respective Image object.
 	 */
+	@Override
 	public void draw(Graphics g) {
 		g.setColor(Color.black);
 		g.drawImage(images[type.id], xPos * TILE_SIZE, yPos * TILE_SIZE);
@@ -125,7 +124,7 @@ public class Tile {
 			entity.draw(g);
 	}
 
-	public Entity getEntity() {
+	public Drawable getEntity() {
 		return entity;
 	}
 
@@ -133,24 +132,8 @@ public class Tile {
 		return type;
 	}
 
-	public void setEntity(Entity entity) {
+	public void setEntity(Drawable entity) {
 		this.entity = entity;
 		occupied = true;
-	}
-
-	public int getxPos() {
-		return xPos;
-	}
-
-	public void setxPos(int xPos) {
-		this.xPos = xPos;
-	}
-
-	public int getyPos() {
-		return yPos;
-	}
-
-	public void setyPos(int yPos) {
-		this.yPos = yPos;
 	}
 }
