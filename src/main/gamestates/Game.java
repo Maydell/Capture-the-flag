@@ -1,7 +1,9 @@
-package gamestates;
+package main.gamestates;
 
+import graphics.HUD;
+import graphics.Map;
 import main.CTF;
-import org.lwjgl.input.Mouse;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -9,12 +11,11 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+
 import world.Camera;
-import world.Map;
 import world.Player;
 import world.Tile;
 import world.Unit;
-import graphics.HUD;
 
 /**
  * This gamestate contains the information relevant to the Game, including
@@ -32,6 +33,7 @@ public class Game extends BasicGameState {
 	Camera c;
 	Player player1, player2, active;
 	HUD hud;
+	Input mapInput, hudInput;
 
 	boolean up, right, down, left;
 
@@ -45,18 +47,21 @@ public class Game extends BasicGameState {
 	 */
 	@Override
 	public void enter(GameContainer gc, StateBasedGame sbg) {
+		mapInput = new Input(0);
+		hudInput = new Input(1);
 		Tile.initTiles();
 		Unit.initUnits();
 		// Creates players
 		player1 = new Player(Player.RED);
 		player2 = new Player(Player.BLUE);
 		// Creates map
-		map = new Map(player1, player2);
+		map = new Map(gc, mapInput, player1, player2);
 		// Sets up units for players
 		player1.setupTeam();
 		player2.setupTeam();
 		// Creates HUD
-		hud = new HUD(gc, player1, player2);
+		hud = new HUD(gc, hudInput, player1, player2);
+		hud.setInput(hudInput);
 		// Creates camera
 		c = new Camera(0.5f);
 		// Set temporary position for camera
@@ -81,8 +86,8 @@ public class Game extends BasicGameState {
 		g.pushTransform();
 		{
 			c.useView(g);
-			map.draw(g);
-			Tile mouseOver = map.getTile(Mouse.getX() + (int) c.getX()
+			map.render(gc, g);
+			/*Tile mouseOver = map.getTile(Mouse.getX() + (int) c.getX()
 					- CTF.WIDTH / 2, CTF.HEIGHT - Mouse.getY() + (int) c.getY()
 					- CTF.HEIGHT / 2);
 			if (mouseOver != null && mouseOver.getType() != Tile.Type.EMPTY) {
@@ -90,19 +95,23 @@ public class Game extends BasicGameState {
 				g.fillRect(mouseOver.getxPos() * Tile.TILE_SIZE + 1,
 						mouseOver.getyPos() * Tile.TILE_SIZE + 1,
 						Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1);
-			}
+			}*/
 		}
 		g.popTransform();
-		hud.draw(g);
+		hud.render(gc, g);
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException {
 		moveCamera(delta);
+		mapInput.setOffset(50000000, 587325398);
 		if (active.done()) {
 			active = (active == player1) ? player2 : player1;
 			active.turn();
+		}
+		if(hud.isMouseOver()) {
+			System.out.println("Mouse over HUD");
 		}
 	}
 
