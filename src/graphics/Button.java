@@ -14,15 +14,18 @@ import org.newdawn.slick.gui.MouseOverArea;
 public class Button extends MouseOverArea {
 
 	private boolean clicked;
-
-	public Button(GUIContext container, Image image, Image hover, int x, int y) {
+	String name;
+	
+	public Button(GUIContext container, Image image, Image hover, int x, int y, String name) {
 		super(container, image, x, y);
 		setMouseOverImage(hover);
+		this.name = name;
 	}
 
 	@Override
 	public void mouseClicked(int button, int x, int y, int clickCount) {
 		if (button == 0 && this.isMouseOver()) {
+			System.out.println("Clicked " + name);
 			clicked = true;
 		}
 	}

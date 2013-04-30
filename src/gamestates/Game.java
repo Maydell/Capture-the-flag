@@ -85,7 +85,7 @@ public class Game extends BasicGameState {
 			Tile mouseOver = map.getTile(Mouse.getX() + (int) c.getX()
 					- CTF.WIDTH / 2, CTF.HEIGHT - Mouse.getY() + (int) c.getY()
 					- CTF.HEIGHT / 2);
-			if (mouseOver != null && mouseOver.getType() != Tile.Type.EMPTY) {
+			if (mouseOver != null && mouseOver.getType() != Tile.Type.EMPTY && !hud.mouseOver()) {
 				g.setColor(new Color(1f, 1f, 1f, .2f));
 				g.fillRect(mouseOver.getxPos() * Tile.TILE_SIZE + 1,
 						mouseOver.getyPos() * Tile.TILE_SIZE + 1,

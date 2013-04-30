@@ -45,10 +45,10 @@ public class Menu extends BasicGameState {
 		Image hoverQuit = new Image("images/buttons/quitButtonHover.png");
 		startButton = new Button(gc, normalStart, hoverStart,
 				(gc.getWidth() - normalStart.getWidth()) / 2,
-				(gc.getHeight() - normalStart.getHeight()) / 2 - 50);
+				(gc.getHeight() - normalStart.getHeight()) / 2 - 50, "Start");
 		quitButton = new Button(gc, normalQuit, hoverQuit,
 				(gc.getWidth() - normalQuit.getWidth()) / 2,
-				(gc.getHeight() - normalQuit.getHeight()) / 2 + 50);
+				(gc.getHeight() - normalQuit.getHeight()) / 2 + 50, "Quit");
 		logo = new Image("res/images/logo.png");
 	}
 
@@ -68,6 +68,13 @@ public class Menu extends BasicGameState {
 		if (startButton.isClicked()) {
 			sbg.enterState(CTF.GAME, new FadeOutTransition(),
 					new FadeInTransition());
+			pauseRender();
+			pauseUpdate();
+			startButton = null;
+			quitButton = null;
+			System.out.println(startButton + " has been nulled");
+			System.out.println(quitButton + " has been nulled");
+			
 		} else if (quitButton.isClicked()) {
 			gc.exit();
 		}
