@@ -15,15 +15,13 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 
 /**
  * This gamestate contains the information relevant to the main menu.
- * It shows the start and quit buttons.
  * 
  * @author Mats Stichel, Isak Jagberg
  * 
  */
 public class Menu extends BasicGameState {
 
-	Button quitButton;
-	Button startButton;
+	Button startButton, quitButton;
 	Image logo;
 
 	int id;

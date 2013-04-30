@@ -1,9 +1,8 @@
 package world;
 
-import graphics.Entity;
 import main.CTF;
-
 import org.newdawn.slick.Graphics;
+import graphics.Drawable;
 
 /**
  * The camera class dictates where things are drawn on the screen. It can be
@@ -21,14 +20,14 @@ public class Camera {
 	public Camera(float speed) {
 		setSpeed(speed);
 	}
-	
+
 	/**
 	 * Moves the camera to the target Drawable.
 	 * 
 	 * @param d
 	 *            The target Drawable.
 	 */
-	public void target(Entity d) {
+	public void target(Drawable d) {
 		setX(d.getxPos());
 		setY(d.getyPos());
 	}
@@ -65,11 +64,11 @@ public class Camera {
 	public void setY(int y) {
 		this.y = y;
 	}
-	
+
 	public float getSpeed() {
 		return speed;
 	}
-	
+
 	public void setSpeed(float speed) {
 		this.speed = speed;
 	}

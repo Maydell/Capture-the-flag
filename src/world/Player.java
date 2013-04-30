@@ -18,7 +18,7 @@ public class Player {
 	private boolean done = false;
 
 	private int score;
-	
+
 	private ArrayList<Unit> units = new ArrayList<Unit>();
 
 	public Player(int team) {
@@ -76,7 +76,7 @@ public class Player {
 	public void setTeam(int team) {
 		this.team = team;
 	}
-	
+
 	public int getScore() {
 		return score;
 	}

@@ -10,8 +10,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
- * CTF holds the gamestates and decides which to show. 
- * It also initializes the GameContainer.
+ * CTF is the main class of the program.
  * 
  * @author Mats Stichel, Isak Jagberg
  * 
