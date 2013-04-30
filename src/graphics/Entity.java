@@ -5,7 +5,8 @@ import org.newdawn.slick.Graphics;
 import world.Tile;
 
 /**
- * An Entity object is anything that can be located in a Tile on the map.
+ * A Drawable object is anything that is drawn on the screen. This includes
+ * Tiles, Units, Spawns and Flags.
  * 
  * @author Mats Stichel, Isak Jagberg
  * 

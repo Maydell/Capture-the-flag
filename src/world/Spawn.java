@@ -81,7 +81,7 @@ public class Spawn extends Entity {
 
 		// Iterate through the neigbors, looking for a Tile that is not occupied
 		// and then puts the given unit on that Tile.
-		for (Tile neighbor : parent.getNeighbors()) {
+		for (Tile neighbor : parent.neighbors) {
 			if (!neighbor.isOccupied()) {
 				unit.moveTo(neighbor);
 				unit.setAlive(true);

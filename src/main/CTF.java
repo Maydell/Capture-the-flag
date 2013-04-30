@@ -1,8 +1,7 @@
 package main;
 
-
-import main.gamestates.Game;
-import main.gamestates.Menu;
+import gamestates.Game;
+import gamestates.Menu;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;

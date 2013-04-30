@@ -1,13 +1,13 @@
 package world;
 
-import graphics.Button;
 import graphics.Entity;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.gui.GUIContext;
 
 /**
  * A Tile is what the game's map is built up of. Each Tile is stored in the list
@@ -16,7 +16,7 @@ import org.newdawn.slick.gui.GUIContext;
  * @author Mats Stichel, Isak Jagberg
  * 
  */
-public class Tile extends Button {
+public class Tile {
 
 	public enum Type {
 		EMPTY(true, 0), GRASS(false, 1), ROCK(false, 2), WALL_GRASS_VERT(true,
@@ -39,21 +39,17 @@ public class Tile extends Button {
 	public static Image[] images;
 
 	private boolean occupied;
-	private ArrayList<Tile> neighbors;
+	ArrayList<Tile> neighbors;
 	private Type type;
 	private Entity entity;
 	
 	private int xPos, yPos;
 
-	public Tile(GUIContext container, Type type, int xPos, int yPos) {
-		super(container, images[type.id], xPos * TILE_SIZE, yPos * TILE_SIZE);
-		Image hover = images[type.id].copy();
-		hover.setImageColor(.8f, .8f, .8f);
-		setMouseOverImage(hover);
+	public Tile(Type type, int xPos, int yPos) {
 		this.type = type;
 		setxPos(xPos);
 		setyPos(yPos);
-		setNeighbors(new ArrayList<Tile>());
+		neighbors = new ArrayList<Tile>();
 		occupied = type.occupied;
 	}
 
@@ -106,7 +102,7 @@ public class Tile extends Button {
 	public void addNeighbor(Tile neighbor) {
 		if (neighbor.type.occupied)
 			return;
-		getNeighbors().add(neighbor);
+		neighbors.add(neighbor);
 	}
 
 	public void removeEntity() {
@@ -118,17 +114,16 @@ public class Tile extends Button {
 		return occupied;
 	}
 
-//	/**
-//	 * Draws the tile, using its respective Image object.
-//	 */
-//	@Override
-//	public void render(GUIContext gc, Graphics g) {
-//		g.setColor(Color.black);
-//		g.drawImage(images[type.id], xPos * TILE_SIZE, yPos * TILE_SIZE);
-//		g.drawRect(xPos * TILE_SIZE, yPos * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-//		if (entity != null)
-//			entity.draw(g);
-//	}
+	/**
+	 * Draws the tile, using its respective Image object.
+	 */
+	public void draw(Graphics g) {
+		g.setColor(Color.black);
+		g.drawImage(images[type.id], xPos * TILE_SIZE, yPos * TILE_SIZE);
+		g.drawRect(xPos * TILE_SIZE, yPos * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+		if (entity != null)
+			entity.draw(g);
+	}
 
 	public Entity getEntity() {
 		return entity;
@@ -157,13 +152,5 @@ public class Tile extends Button {
 
 	public void setyPos(int yPos) {
 		this.yPos = yPos;
-	}
-
-	public ArrayList<Tile> getNeighbors() {
-		return neighbors;
-	}
-
-	public void setNeighbors(ArrayList<Tile> neighbors) {
-		this.neighbors = neighbors;
 	}
 }

@@ -1,4 +1,4 @@
-package main.gamestates;
+package gamestates;
 
 import graphics.Button;
 import main.CTF;

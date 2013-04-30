@@ -1,19 +1,10 @@
-package graphics;
+package world;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.gui.AbstractComponent;
-import org.newdawn.slick.gui.GUIContext;
-
-import world.Flag;
-import world.Player;
-import world.Spawn;
-import world.Tile;
 
 /**
  * The map reads and translates .map-files to in-game graphics. It also contains
@@ -22,19 +13,15 @@ import world.Tile;
  * @author Mats Stichel, Isak Jagberg
  * 
  */
-public class Map extends AbstractComponent {
+public class Map {
 
 	static Tile[][] tiles;
 	Player player1, player2;
 	String name;
-	GUIContext container;
 
-	public Map(GUIContext container, Input input, Player player1, Player player2) {
-		super(container);
-		setInput(input);
+	public Map(Player player1, Player player2) {
 		this.player1 = player1;
 		this.player2 = player2;
-		this.container = container;
 		loadMap();
 	}
 
@@ -56,86 +43,86 @@ public class Map extends AbstractComponent {
 				for (int x = 0; x < tiles.length; x++) {
 					switch (fileReader.nextInt()) {
 					case 0:
-						tiles[x][y] = new Tile(container, Tile.Type.EMPTY, x, y);
+						tiles[x][y] = new Tile(Tile.Type.EMPTY, x, y);
 						break;
 					case 1:
-						tiles[x][y] = new Tile(container, Tile.Type.GRASS, x, y);
+						tiles[x][y] = new Tile(Tile.Type.GRASS, x, y);
 						break;
 					case 2:
-						tiles[x][y] = new Tile(container, Tile.Type.ROCK, x, y);
+						tiles[x][y] = new Tile(Tile.Type.ROCK, x, y);
 						break;
 					case 31:
-						tiles[x][y] = new Tile(container, Tile.Type.WALL_GRASS_VERT, x, y);
+						tiles[x][y] = new Tile(Tile.Type.WALL_GRASS_VERT, x, y);
 						break;
 					case 32:
-						tiles[x][y] = new Tile(container, Tile.Type.WALL_GRASS_HOR, x, y);
+						tiles[x][y] = new Tile(Tile.Type.WALL_GRASS_HOR, x, y);
 						break;
 					case 33:
-						tiles[x][y] = new Tile(container, Tile.Type.WALL_GRASS_NW, x, y);
+						tiles[x][y] = new Tile(Tile.Type.WALL_GRASS_NW, x, y);
 						break;
 					case 34:
-						tiles[x][y] = new Tile(container, Tile.Type.WALL_GRASS_NE, x, y);
+						tiles[x][y] = new Tile(Tile.Type.WALL_GRASS_NE, x, y);
 						break;
 					case 35:
-						tiles[x][y] = new Tile(container, Tile.Type.WALL_GRASS_SE, x, y);
+						tiles[x][y] = new Tile(Tile.Type.WALL_GRASS_SE, x, y);
 						break;
 					case 36:
-						tiles[x][y] = new Tile(container, Tile.Type.WALL_GRASS_SW, x, y);
+						tiles[x][y] = new Tile(Tile.Type.WALL_GRASS_SW, x, y);
 						break;
 					case 41:
-						tiles[x][y] = new Tile(container, Tile.Type.WALL_ROCK_VERT, x, y);
+						tiles[x][y] = new Tile(Tile.Type.WALL_ROCK_VERT, x, y);
 						break;
 					case 42:
-						tiles[x][y] = new Tile(container, Tile.Type.WALL_ROCK_HOR, x, y);
+						tiles[x][y] = new Tile(Tile.Type.WALL_ROCK_HOR, x, y);
 						break;
 					case 43:
-						tiles[x][y] = new Tile(container, Tile.Type.WALL_ROCK_NW, x, y);
+						tiles[x][y] = new Tile(Tile.Type.WALL_ROCK_NW, x, y);
 						break;
 					case 44:
-						tiles[x][y] = new Tile(container, Tile.Type.WALL_ROCK_NE, x, y);
+						tiles[x][y] = new Tile(Tile.Type.WALL_ROCK_NE, x, y);
 						break;
 					case 45:
-						tiles[x][y] = new Tile(container, Tile.Type.WALL_ROCK_SE, x, y);
+						tiles[x][y] = new Tile(Tile.Type.WALL_ROCK_SE, x, y);
 						break;
 					case 46:
-						tiles[x][y] = new Tile(container, Tile.Type.WALL_ROCK_SW, x, y);
+						tiles[x][y] = new Tile(Tile.Type.WALL_ROCK_SW, x, y);
 						break;
 					case 511:
-						tiles[x][y] = new Tile(container, Tile.Type.GRASS, x, y);
+						tiles[x][y] = new Tile(Tile.Type.GRASS, x, y);
 						tiles[x][y].setEntity(new Flag(Player.BLUE));
 						break;
 					case 512:
-						tiles[x][y] = new Tile(container, Tile.Type.ROCK, x, y);
+						tiles[x][y] = new Tile(Tile.Type.ROCK, x, y);
 						tiles[x][y].setEntity(new Flag(Player.BLUE));
 						break;
 					case 521:
-						tiles[x][y] = new Tile(container, Tile.Type.GRASS, x, y);
+						tiles[x][y] = new Tile(Tile.Type.GRASS, x, y);
 						tiles[x][y].setEntity(new Flag(Player.RED));
 						break;
 					case 522:
-						tiles[x][y] = new Tile(container, Tile.Type.ROCK, x, y);
+						tiles[x][y] = new Tile(Tile.Type.ROCK, x, y);
 						tiles[x][y].setEntity(new Flag(Player.RED));
 						break;
 					case 611:
-						tiles[x][y] = new Tile(container, Tile.Type.GRASS, x, y);
+						tiles[x][y] = new Tile(Tile.Type.GRASS, x, y);
 						spawn1 = new Spawn(tiles[x][y], Player.RED);
 						tiles[x][y].setEntity(spawn1);
 						player1.setSpawn(spawn1);
 						break;
 					case 612:
-						tiles[x][y] = new Tile(container, Tile.Type.ROCK, x, y);
+						tiles[x][y] = new Tile(Tile.Type.ROCK, x, y);
 						spawn1 = new Spawn(tiles[x][y], Player.RED);
 						tiles[x][y].setEntity(spawn1);
 						player1.setSpawn(spawn1);
 						break;
 					case 621:
-						tiles[x][y] = new Tile(container, Tile.Type.GRASS, x, y);
+						tiles[x][y] = new Tile(Tile.Type.GRASS, x, y);
 						spawn2 = new Spawn(tiles[x][y], Player.BLUE);
 						tiles[x][y].setEntity(spawn2);
 						player2.setSpawn(spawn2);
 						break;
 					case 622:
-						tiles[x][y] = new Tile(container, Tile.Type.ROCK, x, y);
+						tiles[x][y] = new Tile(Tile.Type.ROCK, x, y);
 						spawn2 = new Spawn(tiles[x][y], Player.BLUE);
 						tiles[x][y].setEntity(spawn2);
 						player2.setSpawn(spawn2);
@@ -148,12 +135,6 @@ public class Map extends AbstractComponent {
 			checkMap();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		}
-		
-		for (int i = 0; i < tiles.length; i++) {
-			for (int e = 0; e < tiles[0].length; e++) {
-				tiles[i][e].setInput(input);
-			}
 		}
 	}
 
@@ -188,8 +169,8 @@ public class Map extends AbstractComponent {
 			System.exit(0);
 		}
 
-		if (player1.getSpawn().getParent().getNeighbors().size() != 4
-				|| player2.getSpawn().getParent().getNeighbors().size() != 4) {
+		if (player1.getSpawn().getParent().neighbors.size() != 4
+				|| player2.getSpawn().getParent().neighbors.size() != 4) {
 			// The four neighbors to the Spawn objects have to be unoccupied.
 			System.err.println("Neighbors to spawn can't be occupied.");
 			System.exit(0);
@@ -215,47 +196,18 @@ public class Map extends AbstractComponent {
 		}
 	}
 
-	@Override
-	public int getHeight() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getWidth() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getX() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getY() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void render(GUIContext gc, Graphics g) throws SlickException {
+	/**
+	 * Draws the Tiles in the map.
+	 * 
+	 * @param g
+	 *            The given Graphics object.
+	 */
+	public void draw(Graphics g) {
 		for (int x = 0; x < tiles.length; x++) {
 			for (int y = 0; y < tiles[0].length; y++) {
 				if (tiles[x][y].getType() != Tile.Type.EMPTY) //Don't draw empty tiles.
-					tiles[x][y].render(gc, g);
+					tiles[x][y].draw(g);
 			}
 		}
-	}
-
-	@Override
-	public void setLocation(int arg0, int arg1) {
-		
-	}
-	
-	@Override
-	public void setInput(Input input) {
-		this.input = input;
 	}
 }
