@@ -1,6 +1,6 @@
 package world;
 
-import graphics.Drawable;
+import graphics.Entity;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -13,7 +13,7 @@ import org.newdawn.slick.SlickException;
  * @author Mats Stichel, Isak Jagberg
  * 
  */
-public class Unit extends Drawable {
+public class Unit extends Entity {
 
 	// Every Unit has a certain Class, which dictates its stats (health, damage,
 	// range etc.)
@@ -106,6 +106,14 @@ public class Unit extends Drawable {
 		if (hp < 0) {
 			hp = 0;
 		}
+	}
+
+	public void moveTo(Tile target) {
+		if (parent != null) {
+			parent.removeEntity();
+		}
+		target.setEntity(this);
+		parent = target;
 	}
 
 	public int getHp() {

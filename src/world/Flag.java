@@ -1,6 +1,6 @@
 package world;
 
-import graphics.Drawable;
+import graphics.Entity;
 
 import org.newdawn.slick.Graphics;
 
@@ -11,16 +11,12 @@ import org.newdawn.slick.Graphics;
  * @author Mats Stichel, Isak Jagberg
  * 
  */
-public class Flag extends Drawable {
+public class Flag extends Entity {
 
 	private int team;
-	
-	private int startX, startY;
 
-	public Flag(int team, int startX, int startY) {
-		setTeam(team);
-		this.startX = startX;
-		this.startY = startY;
+	public Flag(int team) {
+		this.setTeam(team);
 	}
 
 	@Override
