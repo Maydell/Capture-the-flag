@@ -68,12 +68,6 @@ public class Menu extends BasicGameState {
 		if (startButton.isClicked()) {
 			sbg.enterState(CTF.GAME, new FadeOutTransition(),
 					new FadeInTransition());
-			pauseRender();
-			pauseUpdate();
-			startButton = null;
-			quitButton = null;
-			System.out.println(startButton + " has been nulled");
-			System.out.println(quitButton + " has been nulled");
 			
 		} else if (quitButton.isClicked()) {
 			gc.exit();

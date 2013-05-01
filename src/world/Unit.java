@@ -58,14 +58,22 @@ public class Unit extends Entity {
 	public static void initUnits() {
 		images = new Image[Class.values().length][2];
 		try {
-			images[0][0] = new Image("images/drawables/units/unit_red_scout.png");
-			images[0][1] = new Image("images/drawables/units/unit_blue_scout.png");
-			images[1][0] = new Image("images/drawables/units/unit_red_soldier.png");
-			images[1][1] = new Image("images/drawables/units/unit_blue_soldier.png");
-			images[2][0] = new Image("images/drawables/units/unit_red_sniper.png");
-			images[2][1] = new Image("images/drawables/units/unit_blue_sniper.png");
-			images[3][0] = new Image("images/drawables/units/unit_red_medic.png");
-			images[3][1] = new Image("images/drawables/units/unit_blue_medic.png");
+			images[0][0] = new Image(
+					"images/drawables/units/unit_red_scout.png");
+			images[0][1] = new Image(
+					"images/drawables/units/unit_blue_scout.png");
+			images[1][0] = new Image(
+					"images/drawables/units/unit_red_soldier.png");
+			images[1][1] = new Image(
+					"images/drawables/units/unit_blue_soldier.png");
+			images[2][0] = new Image(
+					"images/drawables/units/unit_red_sniper.png");
+			images[2][1] = new Image(
+					"images/drawables/units/unit_blue_sniper.png");
+			images[3][0] = new Image(
+					"images/drawables/units/unit_red_medic.png");
+			images[3][1] = new Image(
+					"images/drawables/units/unit_blue_medic.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -79,22 +87,29 @@ public class Unit extends Entity {
 		if (parent != null) {
 			g.drawImage(images[unitClass.id][team], parent.getxPos()
 					* Tile.TILE_SIZE, parent.getyPos() * Tile.TILE_SIZE);
-			g.setColor(Color.black);
-			g.drawRect(parent.getxPos() * Tile.TILE_SIZE
-					+ (Tile.TILE_SIZE - 40) / 2, parent.getyPos()
-					* Tile.TILE_SIZE - (Tile.TILE_SIZE - 40) / 2, 40, 5);
-			g.setColor(new Color(1 - (float) hp / unitClass.hp, (float) hp
-					/ unitClass.hp, 0f));
-			g.fillRect(1 + parent.getxPos() * Tile.TILE_SIZE
-					+ (Tile.TILE_SIZE - 40) / 2, 1 + parent.getyPos()
-					* Tile.TILE_SIZE - (Tile.TILE_SIZE - 40) / 2,
-					(int) (((double) hp / unitClass.hp) * 39), 4);
+			drawHealth(g);
+			if (Player.selected == this) {
+				
+			}
 		}
 	}
 
+	public void drawHealth(Graphics g) {
+		g.setColor(Color.black);
+		g.drawRect(parent.getxPos() * Tile.TILE_SIZE
+				+ (Tile.TILE_SIZE - 40) / 2, 5 + parent.getyPos()
+				* Tile.TILE_SIZE, 40, 5);
+		g.setColor(new Color(1 - (float) hp / unitClass.hp, (float) hp
+				/ unitClass.hp, 0f));
+		g.fillRect(1 + parent.getxPos() * Tile.TILE_SIZE
+				+ (Tile.TILE_SIZE - 40) / 2, 6 + parent.getyPos()
+				* Tile.TILE_SIZE,
+				(int) (((double) hp / unitClass.hp) * 39), 4);
+	}
+	
 	/**
-	 * Called when getting damaged by a different Unit. Reduces the hp of this Unit
-	 * based on the damage of the attacking Unit.
+	 * Called when getting damaged by a different Unit. Reduces the hp of this
+	 * Unit based on the damage of the attacking Unit.
 	 * 
 	 * @param damage
 	 *            The damage of the attacking Unit.
@@ -139,7 +154,7 @@ public class Unit extends Entity {
 	public void setUnitClass(Class unitClass) {
 		this.unitClass = unitClass;
 	}
-	
+
 	public int getID() {
 		return unitClass.id;
 	}

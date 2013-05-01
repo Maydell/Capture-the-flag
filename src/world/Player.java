@@ -15,10 +15,11 @@ public class Player {
 
 	private int team;
 	private Spawn spawn;
-	private boolean done = false;
+	private boolean done = true;
+	public static Unit selected;
 
 	private int score;
-	
+
 	private ArrayList<Unit> units = new ArrayList<Unit>();
 
 	public Player(int team) {
@@ -35,8 +36,12 @@ public class Player {
 						// step closer to spawning.
 	}
 
-	public boolean done() {
+	public boolean isDone() {
 		return done;
+	}
+	
+	public void done(boolean done) {
+		this.done = done;
 	}
 
 	/**
@@ -76,7 +81,7 @@ public class Player {
 	public void setTeam(int team) {
 		this.team = team;
 	}
-	
+
 	public int getScore() {
 		return score;
 	}
@@ -87,5 +92,10 @@ public class Player {
 
 	public void setUnits(ArrayList<Unit> units) {
 		this.units = units;
+	}
+	
+	@Override
+	public String toString() {
+		return (team == Player.RED) ? "Red" : "Blue";
 	}
 }

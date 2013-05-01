@@ -18,9 +18,8 @@ import graphics.HUD;
 
 /**
  * This gamestate contains the information relevant to the Game, including
- * things like the Map, players and camera.
- * It handles the input and distributes it to the contained elements.
- * It handles the turns.
+ * things like the Map, players and camera. It handles the input and distributes
+ * it to the contained elements. It handles the turns.
  * 
  * @author Mats Stichel, Isak Jagberg
  * 
@@ -85,7 +84,8 @@ public class Game extends BasicGameState {
 			Tile mouseOver = map.getTile(Mouse.getX() + (int) c.getX()
 					- CTF.WIDTH / 2, CTF.HEIGHT - Mouse.getY() + (int) c.getY()
 					- CTF.HEIGHT / 2);
-			if (mouseOver != null && mouseOver.getType() != Tile.Type.EMPTY && !hud.mouseOver()) {
+			if (mouseOver != null && mouseOver.getType() != Tile.Type.EMPTY
+					&& !hud.mouseOver()) {
 				g.setColor(new Color(1f, 1f, 1f, .2f));
 				g.fillRect(mouseOver.getxPos() * Tile.TILE_SIZE + 1,
 						mouseOver.getyPos() * Tile.TILE_SIZE + 1,
@@ -94,15 +94,43 @@ public class Game extends BasicGameState {
 		}
 		g.popTransform();
 		hud.draw(g);
+		g.setColor(Color.black);
+		g.drawString(active + " is active.", 20, 20);
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException {
-		moveCamera(delta);
-		if (active.done()) {
+		if (active.isDone()) {
 			active = (active == player1) ? player2 : player1;
 			active.turn();
+		}
+		Unit selected = hud.selectUnit();
+		if (selected != null) {
+			c.target(selected);
+		}
+		moveCamera(delta);
+	}
+
+	@Override
+	public void mouseClicked(int button, int x, int y, int clickCount) {
+		if (!hud.mouseOver()) {
+			x += c.getX() - CTF.WIDTH / 2;
+			y += c.getY() - CTF.HEIGHT / 2;
+			System.out.println(x + ", " + y);
+			if (button == 0) {
+				Tile clicked = map.getTile(x, y);
+				if (clicked != null) {
+					for (Unit u : active.getUnits()) {
+						System.out.println(clicked.getEntity());
+						if (u == clicked.getEntity()) {
+							Player.selected = u;
+							break;
+						}
+						Player.selected = null;
+					}
+				}
+			}
 		}
 	}
 
@@ -113,18 +141,18 @@ public class Game extends BasicGameState {
 	 *            The tick time.
 	 */
 	public void moveCamera(int delta) {
-		float speed = c.getSpeed();
 		if (up && !down) {
-			c.move(0, -speed * delta);
+			c.move(0, -1, delta);
 		} else if (down && !up) {
-			c.move(0, speed * delta);
+			c.move(0, 1, delta);
 		}
 
 		if (right && !left) {
-			c.move(speed * delta, 0);
+			c.move(1, 0, delta);
 		} else if (left && !right) {
-			c.move(-speed * delta, 0);
+			c.move(-1, 0, delta);
 		}
+		c.move(0, 0, delta);
 	}
 
 	@Override
@@ -137,6 +165,10 @@ public class Game extends BasicGameState {
 			down = true;
 		if (key == Input.KEY_LEFT || key == Input.KEY_A)
 			left = true;
+		
+		if (key == Input.KEY_SPACE) {
+			active.done(true);
+		}
 	}
 
 	@Override

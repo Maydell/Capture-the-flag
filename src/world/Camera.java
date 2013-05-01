@@ -16,12 +16,13 @@ public class Camera {
 
 	private int x; // The camera's x-coordinate
 	private int y; // The camera's y-coordinate
+	private Entity target;
 	private float speed; // The movement speed of the camera.
 
 	public Camera(float speed) {
 		setSpeed(speed);
 	}
-	
+
 	/**
 	 * Moves the camera to the target Drawable.
 	 * 
@@ -29,8 +30,10 @@ public class Camera {
 	 *            The target Drawable.
 	 */
 	public void target(Entity d) {
-		setX(d.getxPos());
-		setY(d.getyPos());
+		target = d;
+		// setX(d.getxPos() * Tile.TILE_SIZE + Tile.TILE_SIZE / 2);
+		// setY(d.getyPos() * Tile.TILE_SIZE + Tile.TILE_SIZE / 2);
+		System.out.println("Moving to " + d.getxPos() + ", " + d.getyPos());
 	}
 
 	public void useView(Graphics g) {
@@ -45,9 +48,27 @@ public class Camera {
 	 * @param dy
 	 *            The change in y-coordinate.
 	 */
-	public void move(float dx, float dy) {
-		x += dx;
-		y += dy;
+	public void move(float dx, float dy, int delta) {
+		if (dx != 0 || dy != 0) {
+			x += dx * speed * delta;
+			y += dy * speed * delta;
+			target = null;
+		} else if (target != null) {
+			dy = (target.getyPos() * Tile.TILE_SIZE + (Tile.TILE_SIZE / 2)) - y;
+			dx = (target.getxPos() * Tile.TILE_SIZE + (Tile.TILE_SIZE / 2)) - x;
+			if (Math.abs(dx) <= 5 && Math.abs(dy) <= 5) {
+				setX(target.getxPos() * Tile.TILE_SIZE + (Tile.TILE_SIZE / 2));
+				setY(target.getyPos() * Tile.TILE_SIZE + (Tile.TILE_SIZE / 2));
+				target = null;
+			}
+			if (dx != 0) {
+				float k = dy / dx;
+				x += delta * dx / 100;
+				y += delta * k * dx / 100;
+			} else {
+				y += delta * dy / 100;
+			}
+		}
 	}
 
 	public int getX() {
@@ -65,11 +86,11 @@ public class Camera {
 	public void setY(int y) {
 		this.y = y;
 	}
-	
+
 	public float getSpeed() {
 		return speed;
 	}
-	
+
 	public void setSpeed(float speed) {
 		this.speed = speed;
 	}

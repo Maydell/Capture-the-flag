@@ -21,6 +21,14 @@ public class Button extends MouseOverArea {
 		setMouseOverImage(hover);
 		this.name = name;
 	}
+	
+	public Button(GUIContext container, Image image, int x, int y, String name) {
+		super(container, image, x, y);
+		this.name = name;
+		Image hover = image.copy();
+		hover.setImageColor(.8f, .8f, .8f);
+		setMouseOverImage(hover);
+	}
 
 	@Override
 	public void mouseClicked(int button, int x, int y, int clickCount) {
@@ -31,6 +39,8 @@ public class Button extends MouseOverArea {
 	}
 
 	public boolean isClicked() {
-		return clicked;
+		boolean temp = clicked;
+		clicked = false;
+		return temp;
 	}
 }
