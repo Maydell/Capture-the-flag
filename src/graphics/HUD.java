@@ -67,9 +67,9 @@ public class HUD {
 			Unit u1 = units1.get(i);
 			Unit u2 = units2.get(i);
 			unitButtons.add(new UnitButton(container, 0, 100 + 60 * i, u1,
-					"bdsf"));
+					"Unit button red " + i));
 			unitButtons.add(new UnitButton(container, CTF.WIDTH - 50,
-					100 + 60 * i, u2, "bsd"));
+					100 + 60 * i, u2, "Unit button blue " + i));
 		}
 	}
 
@@ -102,7 +102,8 @@ public class HUD {
 		for (Button b : unitButtons) {
 			b.render(container, g);
 		}
-		if (Player.selected != null)
+		if (Player.selected != null
+				&& !players[Player.selected.getTeam()].isDone())
 			drawActionbar(g);
 	}
 
@@ -110,11 +111,9 @@ public class HUD {
 		g.drawImage(actionbar,
 				(container.getWidth() - actionbar.getWidth()) / 2,
 				container.getHeight() - actionbar.getHeight());
-		if (!players[Player.selected.getTeam()].isDone()) {
-			for (ActionButton ab : actionButtons) {
-				ab.setTeam(Player.selected.getTeam());
-				ab.render(container, g);
-			}
+		for (ActionButton ab : actionButtons) {
+			ab.setTeam(Player.selected.getTeam());
+			ab.render(container, g);
 		}
 	}
 }

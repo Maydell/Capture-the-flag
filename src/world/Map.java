@@ -89,19 +89,19 @@ public class Map {
 						break;
 					case 511:
 						tiles[x][y] = new Tile(Tile.Type.GRASS, x, y);
-						tiles[x][y].setEntity(new Flag(Player.BLUE));
+						tiles[x][y].setEntity(new Flag(tiles[x][y], Player.BLUE));
 						break;
 					case 512:
 						tiles[x][y] = new Tile(Tile.Type.ROCK, x, y);
-						tiles[x][y].setEntity(new Flag(Player.BLUE));
+						tiles[x][y].setEntity(new Flag(tiles[x][y], Player.BLUE));
 						break;
 					case 521:
 						tiles[x][y] = new Tile(Tile.Type.GRASS, x, y);
-						tiles[x][y].setEntity(new Flag(Player.RED));
+						tiles[x][y].setEntity(new Flag(tiles[x][y], Player.RED));
 						break;
 					case 522:
 						tiles[x][y] = new Tile(Tile.Type.ROCK, x, y);
-						tiles[x][y].setEntity(new Flag(Player.RED));
+						tiles[x][y].setEntity(new Flag(tiles[x][y], Player.RED));
 						break;
 					case 611:
 						tiles[x][y] = new Tile(Tile.Type.GRASS, x, y);

@@ -56,17 +56,17 @@ public class Camera {
 		} else if (target != null) {
 			dy = (target.getyPos() * Tile.TILE_SIZE + (Tile.TILE_SIZE / 2)) - y;
 			dx = (target.getxPos() * Tile.TILE_SIZE + (Tile.TILE_SIZE / 2)) - x;
-			if (Math.abs(dx) <= 5 && Math.abs(dy) <= 5) {
-				setX(target.getxPos() * Tile.TILE_SIZE + (Tile.TILE_SIZE / 2));
-				setY(target.getyPos() * Tile.TILE_SIZE + (Tile.TILE_SIZE / 2));
+			if (Math.abs(dx) <= 25 && Math.abs(dy) <= 25) {
+//				setX(target.getxPos() * Tile.TILE_SIZE + (Tile.TILE_SIZE / 2));
+//				setY(target.getyPos() * Tile.TILE_SIZE + (Tile.TILE_SIZE / 2));
 				target = null;
 			}
 			if (dx != 0) {
 				float k = dy / dx;
-				x += delta * dx / 100;
-				y += delta * k * dx / 100;
+				x += delta * dx / 300;
+				y += delta * k * dx / 300;
 			} else {
-				y += delta * dy / 100;
+				y += delta * dy / 300;
 			}
 		}
 	}

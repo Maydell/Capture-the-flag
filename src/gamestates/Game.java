@@ -94,7 +94,10 @@ public class Game extends BasicGameState {
 		}
 		g.popTransform();
 		hud.draw(g);
-		g.setColor(Color.black);
+		g.setColor(Color.white);
+		g.fillRect(15, 15, 150, 26);
+		Color c = new Color(1f - active.getTeam(), 0f, active.getTeam());
+		g.setColor(c);
 		g.drawString(active + " is active.", 20, 20);
 	}
 
@@ -121,8 +124,8 @@ public class Game extends BasicGameState {
 			if (button == 0) {
 				Tile clicked = map.getTile(x, y);
 				if (clicked != null) {
+					System.out.println(clicked.getEntity());
 					for (Unit u : active.getUnits()) {
-						System.out.println(clicked.getEntity());
 						if (u == clicked.getEntity()) {
 							Player.selected = u;
 							break;
