@@ -31,7 +31,7 @@ public class Map {
 	 */
 	public void loadMap() {
 		Spawn spawn1, spawn2;
-		File file = new File("res/maps/Map.map");
+		File file = new File("res/maps/temp.map");
 		try {
 			Scanner fileReader = new Scanner(file);
 			name = fileReader.nextLine();
