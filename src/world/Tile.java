@@ -100,7 +100,7 @@ public class Tile {
 	 *            The given Tile.
 	 */
 	public void addNeighbor(Tile neighbor) {
-		if (neighbor.type.occupied)
+		if (neighbor.isOccupied())
 			return;
 		neighbors.add(neighbor);
 	}

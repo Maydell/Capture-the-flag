@@ -79,7 +79,7 @@ public class Pathfinding {
 					continue;
 				}
 			}
-			if (!skip)
+			if (!skip && !t.isOccupied())
 				neighbors.add(new Square(s, t));
 		}
 		return neighbors;

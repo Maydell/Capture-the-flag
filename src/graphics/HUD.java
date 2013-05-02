@@ -78,7 +78,7 @@ public class HUD {
 		int mouseX = Mouse.getX();
 		return unitListLeft.contains(mouseX, mouseY)
 				|| unitListRight.contains(mouseX, mouseY)
-				|| actionbarShape.contains(mouseX, mouseY);
+				/*|| actionbarShape.contains(mouseX, mouseY)*/;
 	}
 
 	public Unit selectUnit() {
@@ -102,9 +102,9 @@ public class HUD {
 		for (Button b : unitButtons) {
 			b.render(container, g);
 		}
-		if (Player.selected != null
-				&& !players[Player.selected.getTeam()].isDone())
-			drawActionbar(g);
+//		if (Player.selected != null
+//				&& !players[Player.selected.getTeam()].isDone())
+//			drawActionbar(g);
 	}
 
 	public void drawActionbar(Graphics g) {
