@@ -42,7 +42,7 @@ public class Tile {
 	private Unit unit;
 	private Flag flag;
 	private Spawn spawn;
-	
+
 	private int xPos, yPos;
 
 	public Tile(Type type, int xPos, int yPos) {
@@ -105,11 +105,15 @@ public class Tile {
 		neighbors.add(neighbor);
 	}
 
+	public ArrayList<Tile> getNeighbors() {
+		return neighbors;
+	}
+
 	public void removeUnit() {
 		unit = null;
 		occupied = false;
 	}
-	
+
 	public void removeFlag() {
 		flag = null;
 	}
@@ -133,6 +137,12 @@ public class Tile {
 			spawn.draw(g);
 	}
 
+	public void highlight(Graphics g) {
+		g.setColor(new Color(1f, 1f, 1f, .2f));
+		g.fillRect(getxPos() * Tile.TILE_SIZE + 1, getyPos() * Tile.TILE_SIZE
+				+ 1, Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1);
+	}
+
 	public Unit getUnit() {
 		return unit;
 	}
@@ -153,7 +163,7 @@ public class Tile {
 	public void setxPos(int xPos) {
 		this.xPos = xPos;
 	}
-	
+
 	public void setSpawn(Spawn spawn) {
 		this.spawn = spawn;
 		occupied = true;
@@ -174,7 +184,7 @@ public class Tile {
 	public void setFlag(Flag flag) {
 		this.flag = flag;
 	}
-	
+
 	public Flag getFlag() {
 		return flag;
 	}

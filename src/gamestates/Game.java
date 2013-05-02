@@ -1,6 +1,12 @@
 package gamestates;
 
+import graphics.HUD;
+
+import java.util.ArrayList;
+
 import main.CTF;
+import main.Pathfinding;
+
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -9,12 +15,12 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+
 import world.Camera;
 import world.Map;
 import world.Player;
 import world.Tile;
 import world.Unit;
-import graphics.HUD;
 
 /**
  * This gamestate contains the information relevant to the Game, including
@@ -81,15 +87,18 @@ public class Game extends BasicGameState {
 		{
 			c.useView(g);
 			map.draw(g);
-			Tile mouseOver = map.getTile(Mouse.getX() + (int) c.getX()
-					- CTF.WIDTH / 2, CTF.HEIGHT - Mouse.getY() + (int) c.getY()
+			Tile mouseOver = map.getTile(Mouse.getX() + c.getX()
+					- CTF.WIDTH / 2, CTF.HEIGHT - Mouse.getY() + c.getY()
 					- CTF.HEIGHT / 2);
 			if (mouseOver != null && mouseOver.getType() != Tile.Type.EMPTY
 					&& !hud.mouseOver()) {
-				g.setColor(new Color(1f, 1f, 1f, .2f));
-				g.fillRect(mouseOver.getxPos() * Tile.TILE_SIZE + 1,
-						mouseOver.getyPos() * Tile.TILE_SIZE + 1,
-						Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1);
+				mouseOver.highlight(g);
+				if (Player.selected != null) {
+					ArrayList<Tile> path = Pathfinding.findPath(Player.selected.getParent(), mouseOver);
+					for (Tile t : path) {
+						t.highlight(g);
+					}
+				}
 			}
 		}
 		g.popTransform();
@@ -110,10 +119,6 @@ public class Game extends BasicGameState {
 			c.target(selected);
 		}
 		moveCamera(delta);
-	}
-
-	public void interpretAction(Tile target) {
-
 	}
 
 	@Override
