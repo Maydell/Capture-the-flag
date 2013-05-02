@@ -2,6 +2,8 @@ package world;
 
 import graphics.Entity;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -141,7 +143,7 @@ public class Unit extends Entity {
 		return false;
 	}
 
-	public void moveTo(Tile target) {
+	private void jump(Tile target) {
 		// TODO
 		if (!target.isOccupied()) {
 			System.out.println("Moving unit.");
@@ -161,6 +163,10 @@ public class Unit extends Entity {
 			}
 		} else
 			System.out.println("Can't move to an occupied tile.");
+	}
+	
+	public void moveTo(Tile target) {
+		
 	}
 
 	public void takeFlag(Flag flag) {
