@@ -54,7 +54,7 @@ public class Pathfinding {
 	public static Square findShortest(Square goal) {
 		Square shortest = opened.get(0);
 		for (Square s : opened) {
-			if (getHeuristic(s, goal) < getHeuristic(shortest, goal))
+			if (getHeuristic(s, goal) + getPathLength(s) < getHeuristic(shortest, goal) + getPathLength(shortest))
 				shortest = s;
 		}
 		return shortest;
@@ -72,7 +72,7 @@ public class Pathfinding {
 			}
 			for (Square sq : opened) {
 				if (t == sq.tile) {
-					if (getPathLength(sq) > getPathLength(sq) + 1) {
+					if (getPathLength(sq) > getPathLength(s) + 1) {
 						sq.parent = s;
 					}
 					skip = true;
