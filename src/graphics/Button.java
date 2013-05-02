@@ -15,13 +15,14 @@ public class Button extends MouseOverArea {
 
 	private boolean clicked;
 	String name;
-	
-	public Button(GUIContext container, Image image, Image hover, int x, int y, String name) {
+
+	public Button(GUIContext container, Image image, Image hover, int x, int y,
+			String name) {
 		super(container, image, x, y);
 		setMouseOverImage(hover);
 		this.name = name;
 	}
-	
+
 	public Button(GUIContext container, Image image, int x, int y, String name) {
 		super(container, image, x, y);
 		this.name = name;
@@ -33,7 +34,7 @@ public class Button extends MouseOverArea {
 	@Override
 	public void mouseClicked(int button, int x, int y, int clickCount) {
 		if (button == 0 && this.isMouseOver()) {
-			System.out.println("Clicked " + name);
+			// System.out.println("Clicked " + name);
 			clicked = true;
 		}
 	}

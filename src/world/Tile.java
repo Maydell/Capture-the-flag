@@ -138,7 +138,6 @@ public class Tile {
 	}
 
 	public void highlight(Graphics g) {
-		g.setColor(new Color(1f, 1f, 1f, .2f));
 		g.fillRect(getxPos() * Tile.TILE_SIZE + 1, getyPos() * Tile.TILE_SIZE
 				+ 1, Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1);
 	}
@@ -187,5 +186,11 @@ public class Tile {
 
 	public Flag getFlag() {
 		return flag;
+	}
+	
+	public String toString() {
+		String rep = "";
+		rep += "Occupied: " + occupied;
+		return rep;
 	}
 }

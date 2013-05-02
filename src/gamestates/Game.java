@@ -87,14 +87,17 @@ public class Game extends BasicGameState {
 		{
 			c.useView(g);
 			map.draw(g);
-			Tile mouseOver = map.getTile(Mouse.getX() + c.getX()
-					- CTF.WIDTH / 2, CTF.HEIGHT - Mouse.getY() + c.getY()
-					- CTF.HEIGHT / 2);
+			Tile mouseOver = map.getTile(Mouse.getX() + c.getX() - CTF.WIDTH
+					/ 2, CTF.HEIGHT - Mouse.getY() + c.getY() - CTF.HEIGHT / 2);
 			if (mouseOver != null && mouseOver.getType() != Tile.Type.EMPTY
 					&& !hud.mouseOver()) {
+				g.setColor(new Color(1f, 1f, 1f, .2f));
 				mouseOver.highlight(g);
 				if (Player.selected != null) {
-					ArrayList<Tile> path = Pathfinding.findPath(Player.selected.getParent(), mouseOver);
+					ArrayList<Tile> path = Pathfinding.findPath(
+							Player.selected.getParent(), mouseOver);
+					if (path.size() > Player.selected.getMovement())
+						g.setColor(new Color(1f, .2f, .2f, .5f));
 					for (Tile t : path) {
 						t.highlight(g);
 					}
@@ -128,9 +131,9 @@ public class Game extends BasicGameState {
 			y += c.getY() - CTF.HEIGHT / 2;
 			System.out.println(x + ", " + y);
 			Tile clicked = map.getTile(x, y);
+			System.out.println(clicked);
 			if (clicked != null) {
 				if (button == 0) {
-					System.out.println(clicked.getUnit());
 					Unit u = clicked.getUnit();
 					if (u != null && u.getTeam() == active.getTeam()) {
 						Player.selected = u;

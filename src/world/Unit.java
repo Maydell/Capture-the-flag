@@ -173,6 +173,8 @@ public class Unit extends Entity {
 		if (path.size() <= movement){
 			jump(target);
 			movement -= path.size();
+		}else {
+			System.out.println("That Tile is too far away.");
 		}
 	}
 
@@ -222,5 +224,9 @@ public class Unit extends Entity {
 
 	public void setParent(Tile parent) {
 		this.parent = parent;
+	}
+	
+	public int getMovement() {
+		return movement;
 	}
 }
