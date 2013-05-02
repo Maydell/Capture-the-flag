@@ -91,6 +91,23 @@ public class Game extends BasicGameState {
 						mouseOver.getyPos() * Tile.TILE_SIZE + 1,
 						Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1);
 			}
+			if (Player.selected != null) {
+				Unit selected = Player.selected;
+				g.setColor(Color.red);
+				g.drawOval((selected.getxPos() - selected.getShootRange())
+						* Tile.TILE_SIZE + Tile.TILE_SIZE / 2,
+						(selected.getyPos() - selected.getShootRange())
+								* Tile.TILE_SIZE + Tile.TILE_SIZE / 2, selected.getShootRange() * 2
+								* Tile.TILE_SIZE, selected.getShootRange() * 2
+								* Tile.TILE_SIZE);
+				g.setColor(new Color(1f, 0f, 0f, .5f));
+				g.fillOval((selected.getxPos() - selected.getShootRange())
+						* Tile.TILE_SIZE + Tile.TILE_SIZE / 2,
+						(selected.getyPos() - selected.getShootRange())
+								* Tile.TILE_SIZE + Tile.TILE_SIZE / 2, selected.getShootRange() * 2
+								* Tile.TILE_SIZE, selected.getShootRange() * 2
+								* Tile.TILE_SIZE);
+			}
 		}
 		g.popTransform();
 		hud.draw(g);
@@ -137,8 +154,12 @@ public class Game extends BasicGameState {
 						Player.selected = null;
 				} else if (button == 1 && Player.selected != null) {
 					if (clicked.getUnit() != null) {
-						System.out.println("Attacked unit");
-						Player.selected.attack(clicked.getUnit());
+						if (clicked.getUnit() == Player.selected) {
+							Player.selected.dropFlag();
+						} else {
+							System.out.println("Attacked unit");
+							Player.selected.attack(clicked.getUnit());
+						}
 					} else {
 						System.out.println("Moving unit");
 						Player.selected.moveTo(clicked);

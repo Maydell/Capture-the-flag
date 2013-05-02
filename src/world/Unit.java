@@ -149,6 +149,7 @@ public class Unit extends Entity {
 		if (flag != null) {
 			parent.removeFlag();
 			target.setFlag(flag);
+			flag.setParent(target);
 		}
 		parent = target;
 		if (parent.getFlag() != null && flag == null) {
@@ -174,6 +175,10 @@ public class Unit extends Entity {
 
 	public void setHp(int hp) {
 		this.hp = hp;
+	}
+	
+	public int getShootRange() {
+		return unitClass.shootRange;
 	}
 
 	public boolean isAlive() {
