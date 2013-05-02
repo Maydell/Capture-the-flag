@@ -4,6 +4,8 @@ import graphics.Entity;
 
 import java.util.ArrayList;
 
+import main.Pathfinding;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -52,6 +54,7 @@ public class Unit extends Entity {
 	public Unit(Class unitClass, int team) {
 		setUnitClass(unitClass);
 		setTeam(team);
+		movement = unitClass.moveRange;
 		hp = unitClass.hp;
 	}
 
@@ -166,7 +169,11 @@ public class Unit extends Entity {
 	}
 	
 	public void moveTo(Tile target) {
-		
+		ArrayList<Tile> path = Pathfinding.findPath(parent, target);
+		if (path.size() <= movement){
+			jump(target);
+			movement -= path.size();
+		}
 	}
 
 	public void takeFlag(Flag flag) {
