@@ -29,8 +29,4 @@ public abstract class Entity {
 	public Tile getParent() {
 		return parent;
 	}
-	
-	public void setParent(Tile parent) {
-		this.parent = parent;
-	}
 }

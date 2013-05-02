@@ -22,7 +22,7 @@ public class Spawn extends Entity {
 	// The spawnList stores any dead unit together with its spawn time. At the
 	// start of the player's turn, the spawn time is reduced by 1, until it
 	// reaches 0 (at which point the unit is spawned).
-	private HashMap<Unit, Integer> spawnList = new HashMap<Unit, Integer>();
+	HashMap<Unit, Integer> spawnList = new HashMap<Unit, Integer>();
 	private Animation animation;
 
 	public Spawn(Tile parent, int team) {
@@ -86,6 +86,7 @@ public class Spawn extends Entity {
 				unit.setParent(neighbor);
 				neighbor.setUnit(unit);
 				unit.setAlive(true);
+				unit.setHp(unit.getUnitClass().hp);
 				break;
 			}
 		}
@@ -101,9 +102,14 @@ public class Spawn extends Entity {
 		while (i.hasNext()) {
 			Entry<Unit, Integer> item = i.next();
 			int spawnTime = item.getValue();
-			if (spawnTime <= 1) {
+			System.out.println("Spawn time: " + spawnTime);
+			if (spawnTime <= 0) {
+				item.getKey().getParent().setOccupied(false);
 				spawn(item.getKey());
 				i.remove();
+			} else {
+				spawnTime--;
+				spawnList.put(item.getKey(), spawnTime);
 			}
 		}
 	}
@@ -126,5 +132,5 @@ public class Spawn extends Entity {
 	public void draw(Graphics g) {
 		animation.draw(getxPos() * Tile.TILE_SIZE, getyPos() * Tile.TILE_SIZE);
 	}
-
+	
 }

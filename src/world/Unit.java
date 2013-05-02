@@ -2,8 +2,6 @@ package world;
 
 import graphics.Entity;
 
-import java.util.ArrayList;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -89,29 +87,29 @@ public class Unit extends Entity {
 	@Override
 	public void draw(Graphics g) {
 		if (parent != null) {
-//			System.out.println("Drawing player " + getTeam() + " with parent " + parent + " at position " + parent.getxPos() * Tile.TILE_SIZE + ", " + parent.getyPos() * Tile.TILE_SIZE);
+			// System.out.println("Drawing player " + getTeam() +
+			// " with parent " + parent + " at position " + parent.getxPos() *
+			// Tile.TILE_SIZE + ", " + parent.getyPos() * Tile.TILE_SIZE);
 			g.drawImage(images[unitClass.id][team], parent.getxPos()
 					* Tile.TILE_SIZE, parent.getyPos() * Tile.TILE_SIZE);
 			drawHealth(g);
 			if (Player.selected == this) {
-				
+
 			}
 		}
 	}
 
 	public void drawHealth(Graphics g) {
 		g.setColor(Color.black);
-		g.drawRect(parent.getxPos() * Tile.TILE_SIZE
-				+ (Tile.TILE_SIZE - 40) / 2, 5 + parent.getyPos()
-				* Tile.TILE_SIZE, 40, 5);
+		g.drawRect(parent.getxPos() * Tile.TILE_SIZE + (Tile.TILE_SIZE - 40)
+				/ 2, 5 + parent.getyPos() * Tile.TILE_SIZE, 40, 5);
 		g.setColor(new Color(1 - (float) hp / unitClass.hp, (float) hp
 				/ unitClass.hp, 0f));
 		g.fillRect(1 + parent.getxPos() * Tile.TILE_SIZE
 				+ (Tile.TILE_SIZE - 40) / 2, 6 + parent.getyPos()
-				* Tile.TILE_SIZE,
-				(int) (((double) hp / unitClass.hp) * 39), 4);
+				* Tile.TILE_SIZE, (int) (((double) hp / unitClass.hp) * 39), 4);
 	}
-	
+
 	/**
 	 * Called when getting damaged by a different Unit. Reduces the hp of this
 	 * Unit based on the damage of the attacking Unit.
@@ -120,7 +118,8 @@ public class Unit extends Entity {
 	 *            The damage of the attacking Unit.
 	 */
 	public void takeDamage(int damage) {
-		if (!alive) return;
+		if (!alive)
+			return;
 		hp -= damage;
 		// If hp is negative, the Unit is dead. This makes sure that the Unit
 		// will be added to the Spawn if he was killed.
@@ -131,7 +130,7 @@ public class Unit extends Entity {
 			hp = getUnitClass().hp;
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param unit
@@ -144,27 +143,30 @@ public class Unit extends Entity {
 
 	public void moveTo(Tile target) {
 		// TODO
-		parent.removeUnit();
-		target.setUnit(this);
-		if (flag != null) {
-			parent.removeFlag();
-			target.setFlag(flag);
-			flag.setParent(target);
-		}
-		parent = target;
-		if (parent.getFlag() != null && flag == null) {
-			if (parent.getFlag().getTeam() == getTeam()) {
-				parent.getFlag().reset();
-			} else {
-				takeFlag(parent.getFlag());
+		if (!target.isOccupied()) {
+			System.out.println("Moving unit.");
+			parent.removeUnit();
+			target.setUnit(this);
+			if (flag != null) {
+				parent.removeFlag();
+				target.setFlag(flag);
 			}
-		}
+			parent = target;
+			if (parent.getFlag() != null && flag == null) {
+				if (parent.getFlag().getTeam() == getTeam()) {
+					parent.getFlag().reset();
+				} else {
+					takeFlag(parent.getFlag());
+				}
+			}
+		} else
+			System.out.println("Can't move to an occupied tile.");
 	}
-	
+
 	public void takeFlag(Flag flag) {
 		this.flag = flag;
 	}
-	
+
 	public void dropFlag() {
 		flag = null;
 	}
@@ -175,10 +177,6 @@ public class Unit extends Entity {
 
 	public void setHp(int hp) {
 		this.hp = hp;
-	}
-	
-	public int getShootRange() {
-		return unitClass.shootRange;
 	}
 
 	public boolean isAlive() {

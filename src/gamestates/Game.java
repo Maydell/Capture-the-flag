@@ -75,7 +75,7 @@ public class Game extends BasicGameState {
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
-		g.setColor(Color.cyan);
+		g.setColor(Color.black);
 		g.fillRect(0, 0, CTF.WIDTH, CTF.HEIGHT);
 		g.pushTransform();
 		{
@@ -91,23 +91,6 @@ public class Game extends BasicGameState {
 						mouseOver.getyPos() * Tile.TILE_SIZE + 1,
 						Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1);
 			}
-			if (Player.selected != null) {
-				Unit selected = Player.selected;
-				g.setColor(Color.red);
-				g.drawOval((selected.getxPos() - selected.getShootRange())
-						* Tile.TILE_SIZE + Tile.TILE_SIZE / 2,
-						(selected.getyPos() - selected.getShootRange())
-								* Tile.TILE_SIZE + Tile.TILE_SIZE / 2, selected.getShootRange() * 2
-								* Tile.TILE_SIZE, selected.getShootRange() * 2
-								* Tile.TILE_SIZE);
-				g.setColor(new Color(1f, 0f, 0f, .5f));
-				g.fillOval((selected.getxPos() - selected.getShootRange())
-						* Tile.TILE_SIZE + Tile.TILE_SIZE / 2,
-						(selected.getyPos() - selected.getShootRange())
-								* Tile.TILE_SIZE + Tile.TILE_SIZE / 2, selected.getShootRange() * 2
-								* Tile.TILE_SIZE, selected.getShootRange() * 2
-								* Tile.TILE_SIZE);
-			}
 		}
 		g.popTransform();
 		hud.draw(g);
@@ -121,11 +104,7 @@ public class Game extends BasicGameState {
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException {
-		if (active.isDone()) {
-			active = (active == player1) ? player2 : player1;
-			Player.selected = null;
-			active.turn();
-		}
+
 		Unit selected = hud.selectUnit();
 		if (selected != null) {
 			c.target(selected);
@@ -154,14 +133,9 @@ public class Game extends BasicGameState {
 						Player.selected = null;
 				} else if (button == 1 && Player.selected != null) {
 					if (clicked.getUnit() != null) {
-						if (clicked.getUnit() == Player.selected) {
-							Player.selected.dropFlag();
-						} else {
-							System.out.println("Attacked unit");
-							Player.selected.attack(clicked.getUnit());
-						}
+						System.out.println("Attacked unit");
+						Player.selected.attack(clicked.getUnit());
 					} else {
-						System.out.println("Moving unit");
 						Player.selected.moveTo(clicked);
 					}
 				}
@@ -202,7 +176,10 @@ public class Game extends BasicGameState {
 			left = true;
 
 		if (key == Input.KEY_SPACE) {
-			active.done(true);
+			active.finishTurn();
+			active = (active == player1) ? player2 : player1;
+			Player.selected = null;
+			active.turn();
 		}
 	}
 

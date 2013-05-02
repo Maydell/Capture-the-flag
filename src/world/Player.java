@@ -30,18 +30,29 @@ public class Player {
 	 * In one turn, a player gets to assign his orders to his units.
 	 */
 	public void turn() {
+		System.out.println(this + " player's turn.");
 		done = false; // Done is set to false to show that the player is not
 						// done with his turn.
+		
+		// Add any dead unit to the spawnlist (if he is not already in the spawnlist).
+		for(Unit u : units) {
+			if (!u.isAlive() && !spawn.spawnList.containsKey(u)){
+				spawn.add(u);
+			}
+		}
+		
 		spawn.spawn(); // The units in the player's spawn-list are moved one
-						// step closer to spawning.
+		// step closer to spawning.
+	}
+	
+	public void finishTurn() {
+		System.out.println("Turn over for " + this + "player.");
+		
+		done = true;
 	}
 
 	public boolean isDone() {
 		return done;
-	}
-	
-	public void done(boolean done) {
-		this.done = done;
 	}
 
 	/**
