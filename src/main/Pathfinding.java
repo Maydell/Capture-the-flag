@@ -44,9 +44,8 @@ public class Pathfinding {
 	
 	public static ArrayList<Tile> createPath(Square start) {
 		ArrayList<Tile> path = new ArrayList<Tile>();
-		path.add(start.tile);
 		while (start.parent != null) {
-			path.add(start.parent.tile);
+			path.add(start.tile);
 			start = start.parent;
 		}
 		return path;
