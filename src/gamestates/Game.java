@@ -106,6 +106,7 @@ public class Game extends BasicGameState {
 			throws SlickException {
 		if (active.isDone()) {
 			active = (active == player1) ? player2 : player1;
+			Player.selected = null;
 			active.turn();
 		}
 		Unit selected = hud.selectUnit();
@@ -115,22 +116,32 @@ public class Game extends BasicGameState {
 		moveCamera(delta);
 	}
 
+	public void interpretAction(Tile target) {
+
+	}
+
 	@Override
 	public void mouseClicked(int button, int x, int y, int clickCount) {
 		if (!hud.mouseOver()) {
 			x += c.getX() - CTF.WIDTH / 2;
 			y += c.getY() - CTF.HEIGHT / 2;
 			System.out.println(x + ", " + y);
-			if (button == 0) {
-				Tile clicked = map.getTile(x, y);
-				if (clicked != null) {
-					System.out.println(clicked.getEntity());
-					for (Unit u : active.getUnits()) {
-						if (u == clicked.getEntity()) {
-							Player.selected = u;
-							break;
-						}
+			Tile clicked = map.getTile(x, y);
+			if (clicked != null) {
+				if (button == 0) {
+					System.out.println(clicked.getUnit());
+					Unit u = clicked.getUnit();
+					if (u != null && u.getTeam() == active.getTeam()) {
+						Player.selected = u;
+					} else
 						Player.selected = null;
+				} else if (button == 1 && Player.selected != null) {
+					if (clicked.getUnit() != null) {
+						System.out.println("Attacked unit");
+						Player.selected.attack(clicked.getUnit());
+					} else {
+						System.out.println("Moving unit");
+						Player.selected.moveTo(clicked);
 					}
 				}
 			}
@@ -168,7 +179,7 @@ public class Game extends BasicGameState {
 			down = true;
 		if (key == Input.KEY_LEFT || key == Input.KEY_A)
 			left = true;
-		
+
 		if (key == Input.KEY_SPACE) {
 			active.done(true);
 		}

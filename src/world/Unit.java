@@ -2,6 +2,8 @@ package world;
 
 import graphics.Entity;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -44,6 +46,8 @@ public class Unit extends Entity {
 	private Class unitClass;
 	private int team;
 	private int hp;
+	private int movement;
+	private Flag flag;
 
 	public Unit(Class unitClass, int team) {
 		setUnitClass(unitClass);
@@ -85,6 +89,7 @@ public class Unit extends Entity {
 	@Override
 	public void draw(Graphics g) {
 		if (parent != null) {
+//			System.out.println("Drawing player " + getTeam() + " with parent " + parent + " at position " + parent.getxPos() * Tile.TILE_SIZE + ", " + parent.getyPos() * Tile.TILE_SIZE);
 			g.drawImage(images[unitClass.id][team], parent.getxPos()
 					* Tile.TILE_SIZE, parent.getyPos() * Tile.TILE_SIZE);
 			drawHealth(g);
@@ -115,20 +120,52 @@ public class Unit extends Entity {
 	 *            The damage of the attacking Unit.
 	 */
 	public void takeDamage(int damage) {
+		if (!alive) return;
 		hp -= damage;
 		// If hp is negative, the Unit is dead. This makes sure that the Unit
 		// will be added to the Spawn if he was killed.
-		if (hp < 0) {
+		if (hp <= 0) {
 			hp = 0;
+			alive = false;
+		} else if (hp > getUnitClass().hp) {
+			hp = getUnitClass().hp;
 		}
+	}
+	
+	/**
+	 * 
+	 * @param unit
+	 * @return
+	 */
+	public boolean attack(Unit target) {
+		target.takeDamage(getUnitClass().damage);
+		return false;
 	}
 
 	public void moveTo(Tile target) {
-		if (parent != null) {
-			parent.removeEntity();
+		// TODO
+		parent.removeUnit();
+		target.setUnit(this);
+		if (flag != null) {
+			parent.removeFlag();
+			target.setFlag(flag);
 		}
-		target.setEntity(this);
 		parent = target;
+		if (parent.getFlag() != null && flag == null) {
+			if (parent.getFlag().getTeam() == getTeam()) {
+				parent.getFlag().reset();
+			} else {
+				takeFlag(parent.getFlag());
+			}
+		}
+	}
+	
+	public void takeFlag(Flag flag) {
+		this.flag = flag;
+	}
+	
+	public void dropFlag() {
+		flag = null;
 	}
 
 	public int getHp() {
@@ -165,5 +202,9 @@ public class Unit extends Entity {
 
 	public void setTeam(int team) {
 		this.team = team;
+	}
+
+	public void setParent(Tile parent) {
+		this.parent = parent;
 	}
 }

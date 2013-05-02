@@ -7,11 +7,13 @@ public class ActionButton extends Button {
 
 	Image[] images;
 	Image[] hovers;
+	int id;
 
-	public ActionButton(GUIContext container, Image[] images, int x, int y,
+	public ActionButton(GUIContext container, Image[] images, int x, int y, int id,
 			String name) {
 		super(container, images[0], x, y, name);
 		this.images = images;
+		this.id = id;
 		loadHovers();
 	}
 	

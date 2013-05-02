@@ -31,7 +31,7 @@ public class Map {
 	 */
 	public void loadMap() {
 		Spawn spawn1, spawn2;
-		File file = new File("res/maps/temp.map");
+		File file = new File("res/maps/Map.map");
 		try {
 			Scanner fileReader = new Scanner(file);
 			name = fileReader.nextLine();
@@ -89,42 +89,42 @@ public class Map {
 						break;
 					case 511:
 						tiles[x][y] = new Tile(Tile.Type.GRASS, x, y);
-						tiles[x][y].setEntity(new Flag(tiles[x][y], Player.BLUE));
+						tiles[x][y].setFlag(new Flag(tiles[x][y], Player.BLUE));
 						break;
 					case 512:
 						tiles[x][y] = new Tile(Tile.Type.ROCK, x, y);
-						tiles[x][y].setEntity(new Flag(tiles[x][y], Player.BLUE));
+						tiles[x][y].setFlag(new Flag(tiles[x][y], Player.BLUE));
 						break;
 					case 521:
 						tiles[x][y] = new Tile(Tile.Type.GRASS, x, y);
-						tiles[x][y].setEntity(new Flag(tiles[x][y], Player.RED));
+						tiles[x][y].setFlag(new Flag(tiles[x][y], Player.RED));
 						break;
 					case 522:
 						tiles[x][y] = new Tile(Tile.Type.ROCK, x, y);
-						tiles[x][y].setEntity(new Flag(tiles[x][y], Player.RED));
+						tiles[x][y].setFlag(new Flag(tiles[x][y], Player.RED));
 						break;
 					case 611:
 						tiles[x][y] = new Tile(Tile.Type.GRASS, x, y);
 						spawn1 = new Spawn(tiles[x][y], Player.RED);
-						tiles[x][y].setEntity(spawn1);
+						tiles[x][y].setSpawn(spawn1);
 						player1.setSpawn(spawn1);
 						break;
 					case 612:
 						tiles[x][y] = new Tile(Tile.Type.ROCK, x, y);
 						spawn1 = new Spawn(tiles[x][y], Player.RED);
-						tiles[x][y].setEntity(spawn1);
+						tiles[x][y].setSpawn(spawn1);
 						player1.setSpawn(spawn1);
 						break;
 					case 621:
 						tiles[x][y] = new Tile(Tile.Type.GRASS, x, y);
 						spawn2 = new Spawn(tiles[x][y], Player.BLUE);
-						tiles[x][y].setEntity(spawn2);
+						tiles[x][y].setSpawn(spawn2);
 						player2.setSpawn(spawn2);
 						break;
 					case 622:
 						tiles[x][y] = new Tile(Tile.Type.ROCK, x, y);
 						spawn2 = new Spawn(tiles[x][y], Player.BLUE);
-						tiles[x][y].setEntity(spawn2);
+						tiles[x][y].setSpawn(spawn2);
 						player2.setSpawn(spawn2);
 						break;
 					}

@@ -55,7 +55,7 @@ public class HUD {
 						+ ".png");
 				actionButtons.add(new ActionButton(container, images,
 						(int) actionbarShape.getMinX() + 8 + (103 * i),
-						(int) actionbarShape.getMinY() + 3, "" + i));
+						(int) actionbarShape.getMinY() + 3, i, "" + i));
 			} catch (SlickException e) {
 				e.printStackTrace();
 			}

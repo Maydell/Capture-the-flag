@@ -1,7 +1,5 @@
 package world;
 
-import graphics.Entity;
-
 import java.util.ArrayList;
 
 import org.newdawn.slick.Color;
@@ -41,7 +39,9 @@ public class Tile {
 	private boolean occupied;
 	ArrayList<Tile> neighbors;
 	private Type type;
-	private Entity entity;
+	private Unit unit;
+	private Flag flag;
+	private Spawn spawn;
 	
 	private int xPos, yPos;
 
@@ -105,9 +105,13 @@ public class Tile {
 		neighbors.add(neighbor);
 	}
 
-	public void removeEntity() {
-		entity = null;
+	public void removeUnit() {
+		unit = null;
 		occupied = false;
+	}
+	
+	public void removeFlag() {
+		flag = null;
 	}
 
 	public boolean isOccupied() {
@@ -121,20 +125,24 @@ public class Tile {
 		g.setColor(Color.black);
 		g.drawImage(images[type.id], xPos * TILE_SIZE, yPos * TILE_SIZE);
 		g.drawRect(xPos * TILE_SIZE, yPos * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-		if (entity != null)
-			entity.draw(g);
+		if (unit != null)
+			unit.draw(g);
+		if (flag != null)
+			flag.draw(g);
+		if (spawn != null)
+			spawn.draw(g);
 	}
 
-	public Entity getEntity() {
-		return entity;
+	public Unit getUnit() {
+		return unit;
 	}
 
 	public Type getType() {
 		return type;
 	}
 
-	public void setEntity(Entity entity) {
-		this.entity = entity;
+	public void setUnit(Unit unit) {
+		this.unit = unit;
 		occupied = true;
 	}
 
@@ -145,6 +153,11 @@ public class Tile {
 	public void setxPos(int xPos) {
 		this.xPos = xPos;
 	}
+	
+	public void setSpawn(Spawn spawn) {
+		this.spawn = spawn;
+		occupied = true;
+	}
 
 	public int getyPos() {
 		return yPos;
@@ -152,5 +165,17 @@ public class Tile {
 
 	public void setyPos(int yPos) {
 		this.yPos = yPos;
+	}
+
+	public void setOccupied(boolean b) {
+		occupied = b;
+	}
+
+	public void setFlag(Flag flag) {
+		this.flag = flag;
+	}
+	
+	public Flag getFlag() {
+		return flag;
 	}
 }

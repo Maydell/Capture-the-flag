@@ -83,8 +83,10 @@ public class Spawn extends Entity {
 		// and then puts the given unit on that Tile.
 		for (Tile neighbor : parent.neighbors) {
 			if (!neighbor.isOccupied()) {
-				unit.moveTo(neighbor);
+				unit.setParent(neighbor);
+				neighbor.setUnit(unit);
 				unit.setAlive(true);
+				break;
 			}
 		}
 	}

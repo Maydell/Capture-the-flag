@@ -16,10 +16,11 @@ import org.newdawn.slick.SlickException;
 public class Flag extends Entity {
 
 	private int team;
+	private Tile startParent;
 	private Image image;
 
 	public Flag(Tile parent, int team) {
-		this.parent = parent;
+		this.parent = startParent = parent;
 		this.setTeam(team);
 		try {
 			image = new Image("images/drawables/flag/flag_" + team + ".png");
@@ -39,6 +40,12 @@ public class Flag extends Entity {
 
 	public void setTeam(int team) {
 		this.team = team;
+	}
+	
+	public void reset() {
+		parent.removeFlag();
+		parent = startParent;
+		startParent.setFlag(this);
 	}
 
 }
