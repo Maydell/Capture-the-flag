@@ -23,7 +23,7 @@ public class Unit extends Entity {
 	// range etc.)
 	public static enum Class {
 
-		Scout(100, 40, 8, 8, 2, 0), Soldier(140, 50, 8, 4, 3, 1), Sniper(100,
+		Scout(100, 40, 8, 40, 2, 0), Soldier(140, 50, 8, 4, 3, 1), Sniper(100,
 				80, 40, 2, 3, 2), Medic(100, -30, 4, 6, 3, 3);
 
 		int hp, damage;
@@ -142,7 +142,12 @@ public class Unit extends Entity {
 	 * @return
 	 */
 	public boolean attack(Unit target) {
-		target.takeDamage(getUnitClass().damage);
+		if (target != this) {
+			System.out.println("Attacked " + target + ".");
+			target.takeDamage(getUnitClass().damage);
+			return true;
+		}
+		System.out.println("A Unit can't attack himself.");
 		return false;
 	}
 
@@ -167,13 +172,13 @@ public class Unit extends Entity {
 		} else
 			System.out.println("Can't move to an occupied tile.");
 	}
-	
+
 	public void moveTo(Tile target) {
 		ArrayList<Tile> path = Pathfinding.findPath(parent, target);
-		if (path.size() <= movement){
+		if (path.size() <= movement) {
 			jump(target);
 			movement -= path.size();
-		}else {
+		} else {
 			System.out.println("That Tile is too far away.");
 		}
 	}
@@ -225,8 +230,20 @@ public class Unit extends Entity {
 	public void setParent(Tile parent) {
 		this.parent = parent;
 	}
-	
+
 	public int getMovement() {
 		return movement;
+	}
+	
+	public void setMovement(int movement){
+		this.movement = movement;
+	}
+	
+	public String toString() {
+		String rep = "";
+		if (team == 0) rep += "Red ";
+		else rep += "Blue ";
+		rep += unitClass;
+		return rep;
 	}
 }

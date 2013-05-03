@@ -87,6 +87,7 @@ public class Spawn extends Entity {
 				neighbor.setUnit(unit);
 				unit.setAlive(true);
 				unit.setHp(unit.getUnitClass().hp);
+				unit.setMovement(unit.getUnitClass().moveRange);
 				break;
 			}
 		}

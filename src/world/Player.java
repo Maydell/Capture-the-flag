@@ -30,24 +30,26 @@ public class Player {
 	 * In one turn, a player gets to assign his orders to his units.
 	 */
 	public void turn() {
-		System.out.println(this + " player's turn.");
+		System.out.println(this + "'s turn.");
 		done = false; // Done is set to false to show that the player is not
 						// done with his turn.
-		
-		// Add any dead unit to the spawnlist (if he is not already in the spawnlist).
-		for(Unit u : units) {
-			if (!u.isAlive() && !spawn.spawnList.containsKey(u)){
+
+		// Add any dead unit to the spawnlist (if he is not already in the
+		// spawnlist).
+		for (Unit u : units) {
+			if (!u.isAlive() && !spawn.spawnList.containsKey(u)) {
 				spawn.add(u);
+			} else {
+				u.setMovement(u.getUnitClass().moveRange);
 			}
 		}
-		
+
 		spawn.spawn(); // The units in the player's spawn-list are moved one
 		// step closer to spawning.
 	}
-	
+
 	public void finishTurn() {
-		System.out.println("Turn over for " + this + "player.");
-		
+		System.out.println("Turn over for " + this);
 		done = true;
 	}
 
@@ -104,7 +106,7 @@ public class Player {
 	public void setUnits(ArrayList<Unit> units) {
 		this.units = units;
 	}
-	
+
 	@Override
 	public String toString() {
 		return (team == Player.RED) ? "Red" : "Blue";

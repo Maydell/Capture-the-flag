@@ -190,7 +190,9 @@ public class Tile {
 	
 	public String toString() {
 		String rep = "";
-		rep += "Occupied: " + occupied;
+		if(occupied) rep += "Occupied ";
+		else rep += "Unoccupied ";
+		rep += type + " tile.";
 		return rep;
 	}
 }
