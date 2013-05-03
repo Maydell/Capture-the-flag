@@ -1,12 +1,9 @@
 package gamestates;
 
 import graphics.HUD;
-
 import java.util.ArrayList;
-
 import main.CTF;
 import main.Pathfinding;
-
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -15,7 +12,6 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-
 import world.Camera;
 import world.Map;
 import world.Player;
@@ -35,7 +31,8 @@ public class Game extends BasicGameState {
 	private int id;
 	Map map;
 	Camera c;
-	Player player1, player2, active;
+	Player player1, player2; 
+	public static Player active;
 	HUD hud;
 
 	boolean up, right, down, left;

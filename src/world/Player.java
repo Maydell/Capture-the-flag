@@ -24,6 +24,7 @@ public class Player {
 
 	public Player(int team) {
 		setTeam(team);
+		score = 0;
 	}
 
 	/**
@@ -97,6 +98,10 @@ public class Player {
 
 	public int getScore() {
 		return score;
+	}
+	
+	public void increaseScore(int score) {
+		this.score += score;
 	}
 
 	public ArrayList<Unit> getUnits() {

@@ -182,6 +182,7 @@ public class Tile {
 
 	public void setFlag(Flag flag) {
 		this.flag = flag;
+		flag.setParent(this);
 	}
 
 	public Flag getFlag() {
