@@ -104,6 +104,7 @@ public class Unit extends Entity {
 		}
 	}
 
+	//TODO
 	public void drawHealth(Graphics g) {
 		g.setColor(Color.black);
 		g.drawRect(parent.getxPos() * Tile.TILE_SIZE + (Tile.TILE_SIZE - 40)
@@ -136,11 +137,7 @@ public class Unit extends Entity {
 		}
 	}
 
-	/**
-	 * 
-	 * @param unit
-	 * @return
-	 */
+	//TODO
 	public boolean attack(Unit target) {
 		if (target != this) {
 			System.out.println("Attacked " + target + ".");
@@ -151,10 +148,11 @@ public class Unit extends Entity {
 		return false;
 	}
 
+	// TODO
 	private void jump(Tile target) {
 		// TODO
 		if (!target.isOccupied()) {
-			System.out.println("Moving unit.");
+			System.out.println("Moving " + this + ".");
 			parent.removeUnit();
 			target.setUnit(this);
 			if (flag != null) {
@@ -173,6 +171,7 @@ public class Unit extends Entity {
 			System.out.println("Can't move to an occupied tile.");
 	}
 
+	// TODO
 	public void moveTo(Tile target) {
 		ArrayList<Tile> path = Pathfinding.findPath(parent, target);
 		if (path.size() <= movement) {
@@ -183,66 +182,83 @@ public class Unit extends Entity {
 		}
 	}
 
+	// TODO
 	public void takeFlag(Flag flag) {
 		this.flag = flag;
 	}
 
+	// TODO
 	public void dropFlag() {
 		flag = null;
 	}
 
+	// TODO
 	public int getHp() {
 		return hp;
 	}
 
+	// TODO
 	public void setHp(int hp) {
 		this.hp = hp;
 	}
 
+	// TODO
 	public boolean isAlive() {
 		return alive;
 	}
 
+	// TODO
 	public void setAlive(boolean alive) {
 		this.alive = alive;
 	}
 
+	// TODO
 	public Class getUnitClass() {
 		return unitClass;
 	}
 
+	// TODO
 	public void setUnitClass(Class unitClass) {
 		this.unitClass = unitClass;
 	}
 
+	// TODO
 	public int getID() {
 		return unitClass.id;
 	}
 
+	// TODO
 	public int getTeam() {
 		return team;
 	}
 
+	// TODO
 	public void setTeam(int team) {
 		this.team = team;
 	}
 
+	// TODO
 	public void setParent(Tile parent) {
 		this.parent = parent;
 	}
 
+	// TODO
 	public int getMovement() {
 		return movement;
 	}
-	
-	public void setMovement(int movement){
+
+	// TODO
+	public void setMovement(int movement) {
 		this.movement = movement;
 	}
-	
+
+	// TODO
 	public String toString() {
 		String rep = "";
-		if (team == 0) rep += "Red ";
-		else rep += "Blue ";
+		if (team == 0)
+			rep += "Red ";
+		else
+			rep += "Blue ";
 		rep += unitClass;
 		return rep;
 	}

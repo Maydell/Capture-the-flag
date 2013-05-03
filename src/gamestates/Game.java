@@ -68,7 +68,10 @@ public class Game extends BasicGameState {
 		c.setX(400);
 		c.setY(200);
 		// Starts turn for player 1
-		active = player1;
+		if (Math.random() > 0.5)
+			active = player1;
+		else
+			active = player2;
 		active.turn();
 	}
 
