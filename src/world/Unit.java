@@ -167,13 +167,11 @@ public class Unit extends Entity {
 					target.setFlag(flag);
 				}
 			}
-			// Has moved to new tile
 			parent = target;
 			if (parent.getFlag() != null && flag == null) {
 				if (parent.getFlag().getTeam() == getTeam()) {
 					parent.getFlag().reset();
 				} else {
-					System.out.println("Picked up flag");
 					takeFlag(parent.getFlag());
 				}
 			}
@@ -220,10 +218,6 @@ public class Unit extends Entity {
 	// TODO
 	public void setAlive(boolean alive) {
 		this.alive = alive;
-	}
-	
-	public void setMovement(int movement) {
-		this.movement = movement;
 	}
 
 	// TODO

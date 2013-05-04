@@ -40,8 +40,6 @@ public class Player {
 		for (Unit u : units) {
 			if (!u.isAlive() && !spawn.spawnList.containsKey(u)) {
 				spawn.add(u);
-			} else {
-				u.setMovement(u.getUnitClass().moveRange);
 			}
 		}
 
