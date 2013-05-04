@@ -31,7 +31,7 @@ public class Game extends BasicGameState {
 	private int id;
 	Map map;
 	Camera c;
-	Player player1, player2; 
+	Player player1, player2;
 	public static Player active;
 	HUD hud;
 
@@ -96,8 +96,12 @@ public class Game extends BasicGameState {
 				if (Player.selected != null) {
 					ArrayList<Tile> path = Pathfinding.findPath(
 							Player.selected.getParent(), mouseOver);
+
 					if (path.size() > Player.selected.getMovement())
 						g.setColor(new Color(1f, .2f, .2f, .5f));
+					else if (path.size() <= Player.selected.getMovement() / 2)
+						g.setColor(new Color(.2f, 1f, .2f, .5f));
+
 					for (Tile t : path) {
 						t.highlight(g);
 					}
