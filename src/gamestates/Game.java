@@ -145,16 +145,14 @@ public class Game extends BasicGameState {
 						Player.selected = null;
 				} else if (button == 1 && Player.selected != null) {
 <<<<<<< HEAD
-<<<<<<< HEAD
 					if (clicked.getUnit() != null) {
 =======
 					if (clicked.getUnit() != null && clicked.getUnit() != Player.selected) {
-=======
-					if (clicked.getUnit() != null) {
->>>>>>> Revert "Shit"
 						System.out.println("Attacked unit");
 >>>>>>> Shit
 						Player.selected.attack(clicked.getUnit());
+					} else if (clicked.getUnit() == Player.selected) {
+						clicked.getUnit().dropFlag();
 					} else {
 						Player.selected.moveTo(clicked);
 					}
