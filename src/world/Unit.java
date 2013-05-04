@@ -23,8 +23,8 @@ public class Unit extends Entity {
 	// range etc.)
 	public static enum Class {
 
-		Scout(100, 40, 8, 40000, 2, 0), Soldier(140, 50, 8, 4, 3, 1), Sniper(
-				100, 80, 40, 2, 3, 2), Medic(100, -30, 4, 6, 3, 3);
+		Scout(100, 40, 8, 8, 2, 0), Soldier(140, 50, 8, 4, 3, 1), Sniper(100,
+				80, 40, 2, 3, 2), Medic(100, -30, 4, 6, 3, 3);
 
 		int hp, damage;
 		int shootRange, moveRange;
@@ -156,7 +156,8 @@ public class Unit extends Entity {
 			parent.removeUnit();
 			target.setUnit(this);
 			if (flag != null) {
-				if (target.getFlag() != null && target.getFlag().getTeam() == team) {
+				if (target.getFlag() != null
+						&& target.getFlag().getTeam() == team) {
 					System.out.println(this + " captured the flag.");
 					gamestates.Game.active.increaseScore(10);
 					flag.reset();
