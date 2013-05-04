@@ -259,6 +259,10 @@ public class Unit extends Entity {
 	public void setMovement(int movement) {
 		this.movement = movement;
 	}
+	
+	public int getMoveRange() {
+		return unitClass.moveRange;
+	}
 
 	// TODO
 	public String toString() {
