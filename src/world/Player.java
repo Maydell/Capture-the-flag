@@ -39,6 +39,7 @@ public class Player {
 		// spawnlist).
 		for (Unit u : units) {
 			if (!u.isAlive() && !spawn.spawnList.containsKey(u)) {
+				u.dropFlag();
 				spawn.add(u);
 			} else {
 				u.setMovement(u.getUnitClass().moveRange);
@@ -99,7 +100,7 @@ public class Player {
 	public int getScore() {
 		return score;
 	}
-	
+
 	public void increaseScore(int score) {
 		this.score += score;
 	}

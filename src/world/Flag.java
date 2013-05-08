@@ -31,7 +31,7 @@ public class Flag extends Entity {
 
 	@Override
 	public void draw(Graphics g) {
-		g.drawImage(image, parent.getxPos() * Tile.TILE_SIZE, parent.getyPos() * Tile.TILE_SIZE);
+		g.drawImage(image, getxPos() * Tile.TILE_SIZE, getyPos() * Tile.TILE_SIZE);
 	}
 
 	public int getTeam() {

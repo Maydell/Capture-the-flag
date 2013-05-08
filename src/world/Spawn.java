@@ -83,6 +83,7 @@ public class Spawn extends Entity {
 		// and then puts the given unit on that Tile.
 		for (Tile neighbor : parent.neighbors) {
 			if (!neighbor.isOccupied()) {
+//				unit.getParent().removeUnit();
 				unit.setParent(neighbor);
 				neighbor.setUnit(unit);
 				unit.setAlive(true);
@@ -105,7 +106,7 @@ public class Spawn extends Entity {
 			int spawnTime = item.getValue();
 			System.out.println("Spawn time: " + spawnTime);
 			if (spawnTime <= 0) {
-				item.getKey().getParent().setOccupied(false);
+				item.getKey().getParent().removeUnit();
 				spawn(item.getKey());
 				i.remove();
 			} else {

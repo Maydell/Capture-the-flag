@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 import world.Tile;
 
+/**
+ * 
+ * @author isakjagberg
+ *
+ */
 public class Pathfinding {
 	
 	private static class Square {

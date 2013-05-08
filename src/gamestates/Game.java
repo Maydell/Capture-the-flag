@@ -99,7 +99,8 @@ public class Game extends BasicGameState {
 
 					if (path.size() > Player.selected.getMovement())
 						g.setColor(new Color(1f, .2f, .2f, .5f));
-					else if (path.size()  + Player.selected.getMoveRange() - Player.selected.getMovement() <= Player.selected.getMoveRange() / 2)
+					else if (2 * (path.size() - Player.selected.getMovement())
+							+ Player.selected.getMoveRange() <= 0)
 						g.setColor(new Color(.2f, 1f, .2f, .5f));
 
 					for (Tile t : path) {

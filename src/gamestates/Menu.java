@@ -26,7 +26,7 @@ public class Menu extends BasicGameState {
 	Button startButton;
 	Image logo;
 
-	int id;
+	private int id;
 
 	GameContainer gc;
 
@@ -77,7 +77,7 @@ public class Menu extends BasicGameState {
 
 	@Override
 	public int getID() {
-		return 0;
+		return id;
 	}
 
 }

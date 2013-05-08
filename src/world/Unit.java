@@ -23,8 +23,8 @@ public class Unit extends Entity {
 	// range etc.)
 	public static enum Class {
 
-		Scout(100, 40, 8, 8, 2, 0), Soldier(140, 50, 8, 4, 3, 1), Sniper(100,
-				80, 40, 2, 3, 2), Medic(100, -30, 4, 6, 3, 3);
+		Scout(100, 40, 8, 40000, 2, 0), Soldier(140, 50, 8, 4, 3, 1), Sniper(
+				100, 80, 40, 2, 3, 2), Medic(100, -30, 4, 6, 3, 3);
 
 		int hp, damage;
 		int shootRange, moveRange;
@@ -92,14 +92,11 @@ public class Unit extends Entity {
 	@Override
 	public void draw(Graphics g) {
 		if (parent != null) {
-			// System.out.println("Drawing player " + getTeam() +
-			// " with parent " + parent + " at position " + parent.getxPos() *
-			// Tile.TILE_SIZE + ", " + parent.getyPos() * Tile.TILE_SIZE);
 			g.drawImage(images[unitClass.id][team], parent.getxPos()
 					* Tile.TILE_SIZE, parent.getyPos() * Tile.TILE_SIZE);
 			drawHealth(g);
-			if (Player.selected == this) {
-
+			if (flag != null) {
+				flag.draw(g);
 			}
 		}
 	}
@@ -144,7 +141,8 @@ public class Unit extends Entity {
 			target.takeDamage(getUnitClass().damage);
 			return true;
 		}
-		System.out.println("A Unit can't attack himself.");
+//		System.out.println("A Unit can't attack himself.");
+		dropFlag();
 		return false;
 	}
 
@@ -163,8 +161,7 @@ public class Unit extends Entity {
 					flag.reset();
 					flag = null;
 				} else {
-					parent.removeFlag();
-					target.setFlag(flag);
+					flag.setParent(target);
 				}
 			}
 			parent = target;
@@ -173,6 +170,7 @@ public class Unit extends Entity {
 					parent.getFlag().reset();
 				} else {
 					takeFlag(parent.getFlag());
+					parent.removeFlag();
 				}
 			}
 		} else
@@ -193,10 +191,12 @@ public class Unit extends Entity {
 	// TODO
 	public void takeFlag(Flag flag) {
 		this.flag = flag;
+		flag.getParent().removeFlag();
 	}
 
 	// TODO
 	public void dropFlag() {
+		parent.setFlag(flag);
 		flag = null;
 	}
 
@@ -259,7 +259,7 @@ public class Unit extends Entity {
 	public void setMovement(int movement) {
 		this.movement = movement;
 	}
-	
+
 	public int getMoveRange() {
 		return unitClass.moveRange;
 	}
