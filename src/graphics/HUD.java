@@ -1,5 +1,7 @@
 package graphics;
 
+import gamestates.Game;
+
 import java.util.ArrayList;
 
 import main.CTF;
@@ -8,7 +10,6 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.gui.GUIContext;
@@ -30,36 +31,15 @@ public class HUD {
 	ArrayList<ActionButton> actionButtons = new ArrayList<ActionButton>();
 	Image actionbar;
 	GUIContext container;
-	Shape unitListLeft, unitListRight, actionbarShape;
+	Shape unitListLeft, unitListRight;
+	public static Feed feed;
 
 	public HUD(GUIContext container, Player player1, Player player2) {
+		feed = new Feed();
 		unitListLeft = new Rectangle(0, 100, 50, 230);
 		unitListRight = new Rectangle(container.getWidth() - 50, 100, 50, 230);
-		try {
-			actionbar = new Image("images/buttons/attacks/actionbar_base.png");
-			actionbarShape = new Rectangle(
-					(container.getWidth() - actionbar.getWidth()) / 2,
-					container.getHeight() - actionbar.getHeight(),
-					actionbar.getWidth(), actionbar.getHeight());
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
 		players[0] = player1;
 		players[1] = player2;
-		for (int i = 0; i < 3; i++) {
-			try {
-				Image[] images = new Image[2];
-				images[0] = new Image("images/buttons/attacks/" + i + "_" + 0
-						+ ".png");
-				images[1] = new Image("images/buttons/attacks/" + i + "_" + 1
-						+ ".png");
-				actionButtons.add(new ActionButton(container, images,
-						(int) actionbarShape.getMinX() + 8 + (103 * i),
-						(int) actionbarShape.getMinY() + 3, i, "" + i));
-			} catch (SlickException e) {
-				e.printStackTrace();
-			}
-		}
 		ArrayList<Unit> units1 = player1.getUnits();
 		ArrayList<Unit> units2 = player2.getUnits();
 		this.container = container;
@@ -77,8 +57,7 @@ public class HUD {
 		int mouseY = container.getHeight() - Mouse.getY();
 		int mouseX = Mouse.getX();
 		return unitListLeft.contains(mouseX, mouseY)
-				|| unitListRight.contains(mouseX, mouseY)
-				/*|| actionbarShape.contains(mouseX, mouseY)*/;
+				|| unitListRight.contains(mouseX, mouseY);
 	}
 
 	public Unit selectUnit() {
@@ -93,27 +72,53 @@ public class HUD {
 	public void draw(Graphics g) {
 		g.setColor(Color.white);
 		int centerX = CTF.WIDTH / 2;
-		g.drawString("|", centerX, 10);
-		g.drawString("" + players[0].getScore(), centerX - 20, 10);
-		g.drawString("" + players[1].getScore(), centerX + 10, 10);
+		String scoreText = players[0].getScore() + "|" + players[1].getScore();
+		int width = g.getFont().getWidth(scoreText);
+		g.drawString(scoreText, centerX - width / 2, 10);
+		String turns = Game.turns / 2 + " turns left";
+		width = g.getFont().getWidth(turns);
+		g.drawString(turns, centerX - width / 2, 30);
 		g.setColor(new Color(0f, 0f, 0f, .7f));
 		g.fill(unitListLeft);
 		g.fill(unitListRight);
 		for (Button b : unitButtons) {
 			b.render(container, g);
 		}
-//		if (Player.selected != null
-//				&& !players[Player.selected.getTeam()].isDone())
-//			drawActionbar(g);
+		feed.draw(g);
+		if (Player.selected != null) {
+			drawUnitInfo(g, Player.selected);
+		}
 	}
 
-	public void drawActionbar(Graphics g) {
-		g.drawImage(actionbar,
-				(container.getWidth() - actionbar.getWidth()) / 2,
-				container.getHeight() - actionbar.getHeight());
-		for (ActionButton ab : actionButtons) {
-			ab.setTeam(Player.selected.getTeam());
-			ab.render(container, g);
+	public void drawUnitInfo(Graphics g, Unit u) {
+		int x, y = CTF.HEIGHT - 180;
+		Color teamColor;
+		if (u.getTeam() == Player.RED) {
+			teamColor = Color.red;
+			x = 20;
+		} else {
+			x = CTF.WIDTH - 180;
+			teamColor = Color.blue;
+		}
+		g.setColor(new Color(0f, 0f, 0f, .7f));
+		g.fillRect(x, y, 160, 160);
+		g.setColor(teamColor);
+		g.drawRect(x, y, 160, 160);
+		g.setColor(Color.white);
+		g.drawString(u.toString(), x + 10, y + 10);
+		g.drawString("HP: " + u.getHp() + "/" + u.getMaxHP(), x + 10, y + 25);
+		g.drawString("Actions left: " + u.getMovement(), x + 10, y + 40);
+		g.drawString("Damage: " + u.getDamage(), x + 10, y + 55);
+		if (!u.isAlive()) {
+			if (players[u.getTeam()].getSpawn().spawnList.containsKey(u))
+				g.drawString(
+						"Dead. Spawn in "
+								+ (players[u.getTeam()].getSpawn().spawnList
+										.get(u) + 1), x + 10, y + 70);
+			else
+				g.drawString(
+						"Dead. Spawn in "
+								+ (u.getSpawnTime() + 1), x + 10, y + 70);
 		}
 	}
 }

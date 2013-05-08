@@ -1,5 +1,7 @@
 package world;
 
+import graphics.HUD;
+
 import java.util.ArrayList;
 
 /**
@@ -31,7 +33,7 @@ public class Player {
 	 * In one turn, a player gets to assign his orders to his units.
 	 */
 	public void turn() {
-		System.out.println(this + "'s turn.");
+		HUD.feed.add(this + " is active.", getTeam());
 		done = false; // Done is set to false to show that the player is not
 						// done with his turn.
 
@@ -44,6 +46,9 @@ public class Player {
 			} else {
 				u.setMovement(u.getUnitClass().moveRange);
 			}
+			if (u.hasFlag()) {
+				increaseScore(5);
+			}
 		}
 
 		spawn.spawn(); // The units in the player's spawn-list are moved one
@@ -51,7 +56,6 @@ public class Player {
 	}
 
 	public void finishTurn() {
-		System.out.println("Turn over for " + this);
 		done = true;
 	}
 

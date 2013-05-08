@@ -1,6 +1,7 @@
 package world;
 
 import graphics.Entity;
+import graphics.HUD;
 
 import java.util.ArrayList;
 
@@ -23,9 +24,9 @@ public class Unit extends Entity {
 	// Every Unit has a certain Class, which dictates its stats (health, damage,
 	// range etc.)
 	public static enum Class {
-
-		Scout(100, 40, 8, 40000, 2, 0), Soldier(140, 50, 8, 4, 3, 1), Sniper(
-				100, 80, 40, 2, 3, 2), Medic(100, -30, 4, 6, 3, 3);
+		//    hp - damage - shootRange - moveRange - spawnTime - id
+		Scout(85, 20, 8, 8, 2, 0), Soldier(120, 40, 8, 4, 3, 1), Sniper(
+				75, 60, 40, 2, 3, 2), Medic(100, -30, 4, 6, 3, 3);
 
 		int hp, damage;
 		int shootRange, moveRange;
@@ -137,40 +138,64 @@ public class Unit extends Entity {
 
 	// TODO
 	public boolean attack(Unit target) {
+		if (movement < unitClass.moveRange / 2) {
+			HUD.feed.add("Unit can't do anything else this turn.", -1);
+			return false;
+		}
+		if (!target.isAlive()) {
+			HUD.feed.add("Target is dead.", -1);
+			return false;
+		}
 		if (target != this) {
-			Line path = new Line(getxPos() * Tile.TILE_SIZE, getyPos()
-					* Tile.TILE_SIZE, target.getxPos() * Tile.TILE_SIZE,
-					target.getyPos() * Tile.TILE_SIZE);
+			Line path = new Line((Tile.TILE_SIZE / 2) + getxPos()
+					* Tile.TILE_SIZE, (Tile.TILE_SIZE / 2) + getyPos()
+					* Tile.TILE_SIZE, (Tile.TILE_SIZE / 2) + target.getxPos()
+					* Tile.TILE_SIZE, (Tile.TILE_SIZE / 2) + target.getyPos()
+					* Tile.TILE_SIZE);
 
 			float dx;
 			float dy;
-			
-			if(Math.abs(path.getDX()) > Math.abs(path.getDY())) {
-				dx = 1;
-				dy = path.getDY() / path.getDX();
+
+			if (Math.abs(path.getDX()) > Math.abs(path.getDY())) {
+				dx = (path.getDX() >= 0) ? 1 : -1;
+				dy = dx * path.getDY() / path.getDX();
 			} else {
-				dy = 1;
-				dx = path.getDX() / path.getDY();
+				dy = (path.getDY() >= 0) ? 1 : -1;
+				dx = dy * path.getDX() / path.getDY();
 			}
-			float x = getxPos() * Tile.TILE_SIZE;
-			float y = getyPos() * Tile.TILE_SIZE;
+			float x = (Tile.TILE_SIZE / 2) + getxPos() * Tile.TILE_SIZE;
+			float y = (Tile.TILE_SIZE / 2) + getyPos() * Tile.TILE_SIZE;
 
 			Tile tile = Map.getTile((int) x, (int) y);
 			while (tile.getUnit() != target) {
 				x += dx;
 				y += dy;
 				tile = Map.getTile((int) x, (int) y);
-				System.out.println("Testing: " + tile);
 				if (tile.isOccupied() && tile.getUnit() == null) {
-					System.out.println("Target not visible!");
+					HUD.feed.add("Target not visible! " + tile, -1);
 					return false;
 				}
 			}
-			System.out.println("Attacked " + target + ".");
-			target.takeDamage(getUnitClass().damage);
-			return true;
+			movement = 0;
+			int distance = (int) Math.sqrt(path.getDX() * path.getDX()
+					+ path.getDY() * path.getDY())
+					/ Tile.TILE_SIZE;
+			float chance = 1 - (distance / unitClass.shootRange);
+			System.out.println("Distance: " + distance + " ShootRange: " + unitClass.shootRange);
+			if (Math.random() < chance) {
+				int damage = (int) ((0.8 + Math.random() * 0.4) * unitClass.damage
+						* (1.0 - ((double) distance / (2 * unitClass.shootRange))));
+				target.takeDamage(damage);
+				if (unitClass == Unit.Class.Medic)
+					HUD.feed.add("Healed " + target + " for " + -damage + " hp.", -1);
+				else 
+					HUD.feed.add("Attacked " + target + " for " + damage
+						+ " hp.", -1);
+				return !target.isAlive();
+			}
+			HUD.feed.add("Missed target.", -1);
+			return false;
 		}
-//		System.out.println("A Unit can't attack himself.");
 		dropFlag();
 		return false;
 	}
@@ -179,14 +204,13 @@ public class Unit extends Entity {
 	private void jump(Tile target) {
 		// TODO
 		if (!target.isOccupied()) {
-			System.out.println("Moving " + this + ".");
 			parent.removeUnit();
 			target.setUnit(this);
 			if (flag != null) {
 				if (target.getFlag() != null
 						&& target.getFlag().getTeam() == team) {
-					System.out.println(this + " captured the flag.");
-					gamestates.Game.active.increaseScore(10);
+					HUD.feed.add(this + " captured the flag.", -1);
+					gamestates.Game.active.increaseScore(40);
 					flag.reset();
 					flag = null;
 				} else {
@@ -203,7 +227,7 @@ public class Unit extends Entity {
 				}
 			}
 		} else
-			System.out.println("Can't move to an occupied tile.");
+			HUD.feed.add("Can't move to an occupied tile.", -1);
 	}
 
 	// TODO
@@ -213,7 +237,7 @@ public class Unit extends Entity {
 			jump(target);
 			movement -= path.size();
 		} else {
-			System.out.println("That Tile is too far away.");
+			HUD.feed.add("That Tile is too far away.", -1);
 		}
 	}
 
@@ -225,6 +249,7 @@ public class Unit extends Entity {
 
 	// TODO
 	public void dropFlag() {
+		if (flag == null) return;
 		parent.setFlag(flag);
 		flag = null;
 	}
@@ -292,6 +317,10 @@ public class Unit extends Entity {
 	public int getMoveRange() {
 		return unitClass.moveRange;
 	}
+	
+	public int getMaxHP() {
+		return unitClass.hp;
+	}
 
 	// TODO
 	public String toString() {
@@ -302,5 +331,17 @@ public class Unit extends Entity {
 			rep += "Blue ";
 		rep += unitClass;
 		return rep;
+	}
+
+	public boolean hasFlag() {
+		return flag != null;
+	}
+
+	public int getDamage() {
+		return unitClass.damage;
+	}
+	
+	public int getSpawnTime() {
+		return unitClass.spawnTime;
 	}
 }

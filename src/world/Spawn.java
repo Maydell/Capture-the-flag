@@ -22,7 +22,7 @@ public class Spawn extends Entity {
 	// The spawnList stores any dead unit together with its spawn time. At the
 	// start of the player's turn, the spawn time is reduced by 1, until it
 	// reaches 0 (at which point the unit is spawned).
-	HashMap<Unit, Integer> spawnList = new HashMap<Unit, Integer>();
+	public HashMap<Unit, Integer> spawnList = new HashMap<Unit, Integer>();
 	private Animation animation;
 
 	public Spawn(Tile parent, int team) {
@@ -104,7 +104,6 @@ public class Spawn extends Entity {
 		while (i.hasNext()) {
 			Entry<Unit, Integer> item = i.next();
 			int spawnTime = item.getValue();
-			System.out.println("Spawn time: " + spawnTime);
 			if (spawnTime <= 0) {
 				item.getKey().getParent().removeUnit();
 				spawn(item.getKey());

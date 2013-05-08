@@ -34,7 +34,7 @@ public class Button extends MouseOverArea {
 	@Override
 	public void mouseClicked(int button, int x, int y, int clickCount) {
 		if (button == 0 && this.isMouseOver()) {
-			// System.out.println("Clicked " + name);
+			System.out.println("Clicked " + name);
 			clicked = true;
 		}
 	}

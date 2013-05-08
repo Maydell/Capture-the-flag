@@ -34,6 +34,7 @@ public class Game extends BasicGameState {
 	Player player1, player2;
 	public static Player active;
 	HUD hud;
+	public static int turns = 40;
 
 	boolean up, right, down, left;
 
@@ -81,14 +82,14 @@ public class Game extends BasicGameState {
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
+		Tile mouseOver = Map.getTile(Mouse.getX() + c.getX() - CTF.WIDTH
+				/ 2, CTF.HEIGHT - Mouse.getY() + c.getY() - CTF.HEIGHT / 2);
 		g.setColor(Color.black);
 		g.fillRect(0, 0, CTF.WIDTH, CTF.HEIGHT);
 		g.pushTransform();
 		{
 			c.useView(g);
 			map.draw(g);
-			Tile mouseOver = Map.getTile(Mouse.getX() + c.getX() - CTF.WIDTH
-					/ 2, CTF.HEIGHT - Mouse.getY() + c.getY() - CTF.HEIGHT / 2);
 			if (mouseOver != null && mouseOver.getType() != Tile.Type.EMPTY
 					&& !hud.mouseOver()) {
 				g.setColor(new Color(1f, 1f, 1f, .2f));
@@ -111,11 +112,9 @@ public class Game extends BasicGameState {
 		}
 		g.popTransform();
 		hud.draw(g);
-		g.setColor(Color.white);
-		g.fillRect(15, 15, 150, 26);
-		Color c = new Color(1f - active.getTeam(), 0f, active.getTeam());
-		g.setColor(c);
-		g.drawString(active + " is active.", 20, 20);
+		if (mouseOver != null && mouseOver.getUnit() != null && (Player.selected == null || mouseOver.getUnit().getTeam() != Player.selected.getTeam())) {
+			hud.drawUnitInfo(g, mouseOver.getUnit());
+		}
 	}
 
 	@Override
@@ -134,22 +133,21 @@ public class Game extends BasicGameState {
 		if (!hud.mouseOver()) {
 			x += c.getX() - CTF.WIDTH / 2;
 			y += c.getY() - CTF.HEIGHT / 2;
-			System.out.println(x + ", " + y);
 			Tile clicked = Map.getTile(x, y);
-			System.out.println(clicked);
 			if (clicked != null) {
 				if (button == 0) {
 					Unit u = clicked.getUnit();
-					if (u != null && u.getTeam() == active.getTeam()) {
+					if (u != null && u.isAlive()
+							&& u.getTeam() == active.getTeam())
 						Player.selected = u;
-					} else
+					else
 						Player.selected = null;
 				} else if (button == 1 && Player.selected != null) {
 					if (clicked.getUnit() != null) {
-						Player.selected.attack(clicked.getUnit());
-					} else {
+						if (Player.selected.attack(clicked.getUnit()) && clicked.getUnit().getTeam() != Player.selected.getTeam())
+							active.increaseScore(10);
+					} else
 						Player.selected.moveTo(clicked);
-					}
 				}
 			}
 		}
@@ -189,6 +187,16 @@ public class Game extends BasicGameState {
 
 		if (key == Input.KEY_SPACE) {
 			active.finishTurn();
+			turns--;
+			if (turns == 0) {
+				if (player1.getScore() > player2.getScore()) {
+					HUD.feed.add("Player 1 won the game.", -1);
+				} else if (player2.getScore() > player1.getScore()) {
+					HUD.feed.add("Player 2 won the game.", -1);
+				} else {
+					HUD.feed.add("It's a tie.", -1);
+				}
+			}
 			active = (active == player1) ? player2 : player1;
 			Player.selected = null;
 			active.turn();
