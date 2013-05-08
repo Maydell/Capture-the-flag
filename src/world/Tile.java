@@ -194,6 +194,7 @@ public class Tile {
 		if(occupied) rep += "Occupied ";
 		else rep += "Unoccupied ";
 		rep += type + " tile.";
+		rep += " " + xPos + ", " + yPos;
 		return rep;
 	}
 }

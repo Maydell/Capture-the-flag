@@ -87,7 +87,7 @@ public class Game extends BasicGameState {
 		{
 			c.useView(g);
 			map.draw(g);
-			Tile mouseOver = map.getTile(Mouse.getX() + c.getX() - CTF.WIDTH
+			Tile mouseOver = Map.getTile(Mouse.getX() + c.getX() - CTF.WIDTH
 					/ 2, CTF.HEIGHT - Mouse.getY() + c.getY() - CTF.HEIGHT / 2);
 			if (mouseOver != null && mouseOver.getType() != Tile.Type.EMPTY
 					&& !hud.mouseOver()) {
@@ -135,7 +135,7 @@ public class Game extends BasicGameState {
 			x += c.getX() - CTF.WIDTH / 2;
 			y += c.getY() - CTF.HEIGHT / 2;
 			System.out.println(x + ", " + y);
-			Tile clicked = map.getTile(x, y);
+			Tile clicked = Map.getTile(x, y);
 			System.out.println(clicked);
 			if (clicked != null) {
 				if (button == 0) {

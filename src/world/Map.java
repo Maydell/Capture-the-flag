@@ -149,7 +149,8 @@ public class Map {
 	 *            The y-coordinate of the wanted Tile.
 	 * @return The tile at (x, y).
 	 */
-	public Tile getTile(int x, int y) {
+	public static Tile getTile(int x, int y) {
+		if (tiles == null) return null;
 		if (x < 0 || x >= tiles.length * Tile.TILE_SIZE || y < 0
 				|| y >= tiles[0].length * Tile.TILE_SIZE)
 			return null;

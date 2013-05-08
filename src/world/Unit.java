@@ -10,6 +10,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Line;
 
 /**
  * A Unit is a object that the players can give orders to.
@@ -137,6 +138,34 @@ public class Unit extends Entity {
 	// TODO
 	public boolean attack(Unit target) {
 		if (target != this) {
+			Line path = new Line(getxPos() * Tile.TILE_SIZE, getyPos()
+					* Tile.TILE_SIZE, target.getxPos() * Tile.TILE_SIZE,
+					target.getyPos() * Tile.TILE_SIZE);
+
+			float dx;
+			float dy;
+			
+			if(Math.abs(path.getDX()) > Math.abs(path.getDY())) {
+				dx = 1;
+				dy = path.getDY() / path.getDX();
+			} else {
+				dy = 1;
+				dx = path.getDX() / path.getDY();
+			}
+			float x = getxPos() * Tile.TILE_SIZE;
+			float y = getyPos() * Tile.TILE_SIZE;
+
+			Tile tile = Map.getTile((int) x, (int) y);
+			while (tile.getUnit() != target) {
+				x += dx;
+				y += dy;
+				tile = Map.getTile((int) x, (int) y);
+				System.out.println("Testing: " + tile);
+				if (tile.isOccupied() && tile.getUnit() == null) {
+					System.out.println("Target not visible!");
+					return false;
+				}
+			}
 			System.out.println("Attacked " + target + ".");
 			target.takeDamage(getUnitClass().damage);
 			return true;
