@@ -2,11 +2,8 @@ package world;
 
 import graphics.Entity;
 import graphics.HUD;
-
 import java.util.ArrayList;
-
 import main.Pathfinding;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -25,8 +22,8 @@ public class Unit extends Entity {
 	// range etc.)
 	public static enum Class {
 		//    hp - damage - shootRange - moveRange - spawnTime - id
-		Scout(85, 20, 8, 8, 2, 0), Soldier(120, 40, 8, 4, 3, 1), Sniper(
-				75, 60, 40, 2, 3, 2), Medic(100, -30, 4, 6, 3, 3);
+		Scout(85, 20, 8, 8, 2, 0), Soldier(120, 40, 8, 6, 3, 1), Sniper(
+				75, 60, 40, 3, 3, 2), Medic(100, -30, 14, 6, 3, 3);
 
 		int hp, damage;
 		int shootRange, moveRange;
@@ -172,7 +169,7 @@ public class Unit extends Entity {
 				y += dy;
 				tile = Map.getTile((int) x, (int) y);
 				if (tile.isOccupied() && tile.getUnit() == null) {
-					HUD.feed.add("Target not visible! " + tile, -1);
+					HUD.feed.add("Target not visible!", -1);
 					return false;
 				}
 			}
