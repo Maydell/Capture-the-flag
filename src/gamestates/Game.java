@@ -95,6 +95,7 @@ public class Game extends BasicGameState {
 				g.setColor(new Color(1f, 1f, 1f, .2f));
 				mouseOver.highlight(g);
 				if (Player.selected != null) {
+					Player.selected.getParent().highlight(g);
 					ArrayList<Tile> path = Pathfinding.findPath(
 							Player.selected.getParent(), mouseOver);
 
