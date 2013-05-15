@@ -9,7 +9,6 @@ import main.CTF;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.gui.GUIContext;
@@ -28,8 +27,6 @@ public class HUD {
 
 	Player[] players = new Player[2];
 	ArrayList<UnitButton> unitButtons = new ArrayList<UnitButton>();
-	ArrayList<ActionButton> actionButtons = new ArrayList<ActionButton>();
-	Image actionbar;
 	GUIContext container;
 	Shape unitListLeft, unitListRight;
 	public static Feed feed;

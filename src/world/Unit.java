@@ -136,7 +136,7 @@ public class Unit extends Entity {
 	// TODO
 	public boolean attack(Unit target) {
 		if (movement < unitClass.moveRange / 2) {
-			HUD.feed.add("Unit can't do anything else this turn.", -1);
+			HUD.feed.add(this + " has no more actions.", -1);
 			return false;
 		}
 		if (!target.isAlive()) {
