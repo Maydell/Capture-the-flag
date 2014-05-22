@@ -49,7 +49,7 @@ public class Menu extends BasicGameState {
 		quitButton = new Button(gc, normalQuit, hoverQuit,
 				(gc.getWidth() - normalQuit.getWidth()) / 2,
 				(gc.getHeight() - normalQuit.getHeight()) / 2 + 50, "Quit");
-		logo = new Image("res/images/logo.png");
+		logo = new Image("images/logo.png");
 	}
 
 	@Override
